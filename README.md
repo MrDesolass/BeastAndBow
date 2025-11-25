@@ -1,6 +1,6 @@
 # BeastAndBow - The Hunter's Essential Toolkit
 
-![BeastAndBow Ingame Screenshot](https://raw.githubusercontent.com/MrDesolass/BeastAndBow/main/screenshot.jpg)
+![BeastAndBow Ingame Screenshot](https://storage.googleapis.com/agent_developer_forum_data/uploaded%3Afirefox_xcuouHm7VU.jpg-8a80142c-7474-4db9-9937-4a4eed5b228b)
 
 A lightweight and responsive Quality-of-Life addon for World of Warcraft: Classic Hunters.
 
