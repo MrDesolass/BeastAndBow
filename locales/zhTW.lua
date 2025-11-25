@@ -1,0 +1,64 @@
+-- Traditional Chinese (machine-generated)
+
+BeastAndBow_locales = BeastAndBow_locales or {}
+BeastAndBow_locales["zhTW"] = {
+    -- 通用
+    ADDON_NAME = "|cff9482c9Beast & Bow|r",
+    ALLIANCE = "聯盟",
+    HORDE = "部落",
+    NEUTRAL = "中立",
+
+    -- BeastAndBow.lua
+    GET_MAX_AMMO_CAPACITY_NOT_AVAILABLE = "GetMaxAmmoCapacity：GetContainerItemLink 無法使用。",
+    STARTING_QUIVER_SEARCH = "開始搜尋箭袋（除錯）...",
+    BAG_INFO = "背包 %d：'%s'，ClassID：'%s'，SubClassID：'%s'，ItemID：'%s'",
+    KNOWN_QUIVER_CAPACITY = "  -> 已知箭袋！容量：%s",
+    UNKNOWN_QUIVER = "  -> 未知的箭袋/彈藥袋。",
+    NO_QUIVER_FOUND = "找不到已知箭袋。使用預設值：800。",
+    GET_TOTAL_AMMO_COUNT_NOT_AVAILABLE = "GetTotalAmmoCountAndLink：GetContainerItemLink 無法使用。",
+    GET_CONTAINER_NUM_SLOTS_NOT_AVAILABLE = "GetTotalAmmoCountAndLink：GetContainerNumSlots 無法使用。",
+    AUTODETECT_AMMO_STARTED = "AutoDetectAmmo 已啟動。",
+    RANGED_WEAPON_CHANGED = "遠程武器已更換，正在執行 AutoDetectAmmo。",
+    EVENT_FIRED = "事件觸發：%s",
+    BAG_UPDATE_FOR_BAG = "BAG_UPDATE：背包 %s",
+    UNIT_INVENTORY_CHANGED = "UNIT_INVENTORY_CHANGED：單位 %s，欄位：%s",
+    RANGED_SWING_DAMAGE_DETECTED = "偵測到遠程/近戰傷害，正在更新彈藥數量。",
+    FIND_NEAREST_VENDOR_CALLED = "已呼叫 FindNearestVendor：%s",
+    COULD_NOT_DETERMINE_PLAYER_FACTION = "無法確定玩家陣營。",
+    MAP_API_NOT_AVAILABLE = "地圖 API 無法使用。無法找到商人。",
+    COULD_NOT_DETERMINE_UI_MAP_ID = "無法確定目前的 uiMapID。",
+    COULD_NOT_GET_PLAYER_POSITION = "無法取得玩家位置。",
+    PLAYER_POSITION = "玩家位置：mapID=%d，x=%.1f，y=%.1f",
+    SEARCHING_FOR_NEAREST_VENDOR = "正在搜尋最近的 %s 商人...",
+    CHECKING_VENDOR = "  檢查商人：%s",
+    VENDOR_MAP_ID = "    商人 mapID：%d",
+    VENDOR_NOT_ACCESSIBLE = "    商人 %s 對於陣營 %s 無法存取",
+    UNKNOWN_ZONE = "未知區域",
+    WAYPOINT_CREATED = "已為 %s 在 %s 建立路徑點。",
+    TOMTOM_NOT_FOUND = "找不到 TomTom。路徑點指令：/way ",
+    NO_VENDOR_FOUND = "找不到 %s 商人。",
+    DEBUG_MODE_ENABLED = "偵錯模式已啟用",
+    DEBUG_MODE_DISABLED = "偵錯模式已停用",
+    AVAILABLE_COMMANDS = "可用指令：/bab [show|hide|debug]",
+    BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad 已啟動。",
+    COMBAT_LOG_INFO = "戰鬥記錄：%s，%s，%s，%s",
+
+    -- BeastAndBow.xml
+    ARROWS = "箭矢",
+    BREAD = "麵包",
+    FISH = "魚",
+    CHEESE = "起司",
+    FRUITS = "水果",
+    MUSHROOMS = "蘑菇",
+    MEAT = "肉品",
+    ARROW_BUTTON_CLICKED = "Beast & Bow：箭矢按鈕已點擊",
+    BREAD_BUTTON_CLICKED = "Beast & Bow：麵包按鈕已點擊",
+    FISH_BUTTON_CLICKED = "Beast & Bow：魚按鈕已點擊",
+    CHEESE_BUTTON_CLICKED = "Beast & Bow：起司按鈕已點擊",
+    FRUIT_BUTTON_CLICKED = "Beast & Bow：水果按鈕已點擊",
+    MUSHROOM_BUTTON_CLICKED = "Beast & Bow：蘑菇按鈕已點擊",
+    MEAT_BUTTON_CLICKED = "Beast & Bow：肉品按鈕已點擊",
+
+    -- BeastAndBow.toc
+    NOTES = "追蹤你的彈藥並尋找最近的箭與寵物飼料商人。",
+}
