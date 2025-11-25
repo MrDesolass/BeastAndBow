@@ -1,0 +1,30 @@
+🏹 BeastAndBow Master-Roadmap (TODO)
+
+Aktuelle Version: v1.0.1 (Live-Status: Approved)
+
+Phase 1: Hardcore-Safety & QoL (Geplant für v1.1 - Nächster Release)
+
+Fokus: Verbesserung der Überlebensfähigkeit des Jägers und Umsetzung des dringendsten Community-Feedbacks.
+ID	Feature	Priorität	Bemerkung
+A1	Munitions-Alarm (Pop-up)	Sehr Hoch	Implementierung einer zentralen, blinkenden Benachrichtigung, wenn die Munition unter einen Schwellenwert fällt (z.B. 2 Stacks). Muss Hardcore-Safe sein.
+A2	"Pet Füttern"-Button	Hoch	Ein Button, der das Haustier direkt mit dem passenden Futter (das der Spieler dabei hat) füttert und dessen Glück erhöht.
+A3	Pet Info-Fenster	Mittel	Kleines Tooltip-Fenster/Frame, das die Zufriedenheit (Happiness), Level und Loyalität des aktiven Begleiters anzeigt.
+A4	Lokalisierung (Alarm/Futter)	Hoch	Alle neuen Texte (für den Alarm und den Futter-Button) müssen in die Übersetzungsdateien (.lua) eingepflegt werden.
+
+Phase 2: UI/UX & Cleanup (Geplant für v1.2)
+
+Fokus: Verbesserung der Benutzeroberfläche und Erhöhung des Komforts (um dem Feedback wie "Screen Real Estate" gerecht zu werden).
+ID	Feature	Priorität	Bemerkung
+B1	Einklappbare Menüs	Hoch	Eine kleine Pfeil- oder Minus-Taste, um die Essens-Buttons (und ggf. weitere QoL-Elemente) auszublenden, wenn man nur den Munitions-Tracker benötigt.
+B2	Größe/Skalierung	Mittel	Option, die Größe des Hauptframes anzupassen (oder eine bessere Standardgröße festlegen).
+B3	Verbesserte Vendor-Suche	Mittel	Optimierung der Vendor-Suche, um sicherzustellen, dass sie immer den besten passenden Händler für den Gegenstand (auch in Städten) findet.
+
+Phase 3: Advanced Management (Langfristige Vision)
+
+Fokus: Implementierung von komplexen, datenbank-basierten Funktionen.
+ID	Feature	Priorität	Bemerkung
+C1	Stall-Übersicht	Mittel	Ein Fenster, das alle Haustiere im Stall anzeigt, inklusive deren Name, Art und Status. (Erfordert das Parsen spezifischer WoW-Funktionen wie GetStablePetInfo).
+C2	Config/Optionen-Menü	Mittel	Ein ordentliches Einstellungsmenü (Interface Options) statt reiner Slash-Commands.
+C3	Futter-Datenbank	Niedrig	Erstellung einer kleinen Datenbank, die anzeigt, welches Futter dein aktuelles Pet mag (z.B. wenn man das Pet wechselt).
+
+Nächster Schritt: Konzentriere dich auf A1 (Munitions-Alarm). Das ist dein stärkstes Feature für das Hardcore-Event! Viel Erfolg!

@@ -1,0 +1,28 @@
+## Interface: 11508
+## Title: |cff9482c9Beast & Bow|r
+## Title-deDE: |cff9482c9Beast & Bow|r
+## Version: 1.0.1
+## Author: MrDesolas
+## Notes: Tracks your ammo and finds the nearest arrow and pet food vendors.
+## Notes-deDE: Verfolgt deine Munition und findet die nächsten Pfeil- und Tierfutterhändler.
+## OptionalDeps: TomTom
+## SavedVariables: BeastAndBow_Settings
+
+init.lua
+locales\enUS.lua
+locales\deDE.lua
+locales\esES.lua
+locales\esMX.lua
+locales\frFR.lua
+locales\itIT.lua
+locales\koKR.lua
+locales\ptBR.lua
+locales\ruRU.lua
+locales\zhCN.lua
+locales\zhTW.lua
+
+localization.lua
+Data.lua
+BeastAndBow_Bindings.lua
+BeastAndBow.lua
+BeastAndBow.xml
