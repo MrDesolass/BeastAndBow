@@ -3,7 +3,6 @@
 **Beast & Bow** is a lightweight, essential addon for **World of Warcraft: Classic** Hunters. It keeps track of your ammo and helps you keep your pet happy by finding the nearest food vendors instantly.
 
 ![Beast & Bow Screenshot](screenshot.jpg)
-*(Add a screenshot named screenshot.jpg to your repo to see it here)*
 
 ## 🏹 Features
 
