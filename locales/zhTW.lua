@@ -45,6 +45,7 @@ BeastAndBow_locales["zhTW"] = {
 
     -- BeastAndBow.xml
     ARROWS = "箭矢",
+    BULLETS = "子彈",
     BREAD = "麵包",
     FISH = "魚",
     CHEESE = "起司",

@@ -66,6 +66,7 @@ BeastAndBow_locales["ruRU"] = {
 
     -- BeastAndBow.xml
     ARROWS = "Стрелы",
+    BULLETS = "Пули",
     BREAD = "Хлеб",
     FISH = "Рыба",
     CHEESE = "Сыр",

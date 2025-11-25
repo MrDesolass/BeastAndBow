@@ -1,7 +1,7 @@
 ## Interface: 11508
 ## Title: |cff9482c9Beast & Bow|r
 ## Title-deDE: |cff9482c9Beast & Bow|r
-## Version: 1.0
+## Version: 1.0.1
 ## Author: MrDesolas
 ## Notes: Tracks your ammo and finds the nearest arrow and pet food vendors.
 ## Notes-deDE: Verfolgt deine Munition und findet die nächsten Pfeil- und Tierfutterhändler.

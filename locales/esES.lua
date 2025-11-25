@@ -65,6 +65,7 @@ BeastAndBow_locales["esES"] = {
     DEBUG_EXPECTED_AMMO_SET = "Munición esperada establecida a ClassID: %s, SubClassID: %s",
     -- BeastAndBow.xml
     ARROWS = "Flechas",
+    BULLETS = "Balas",
     BREAD = "Pan",
     FISH = "Pescado",
     CHEESE = "Queso",

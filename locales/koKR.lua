@@ -66,6 +66,7 @@ BeastAndBow_locales["koKR"] = {
 
     -- BeastAndBow.xml
     ARROWS = "화살",
+    BULLETS = "총알",
     BREAD = "빵",
     FISH = "물고기",
     CHEESE = "치즈",

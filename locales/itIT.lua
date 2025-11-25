@@ -66,6 +66,7 @@ BeastAndBow_locales["itIT"] = {
 
     -- BeastAndBow.xml
     ARROWS = "Freccie",
+    BULLETS = "Proiettili",
     BREAD = "Pane",
     FISH = "Pesce",
     CHEESE = "Formaggio",

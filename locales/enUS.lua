@@ -73,6 +73,7 @@ BeastAndBow_locales["enUS"] = {
 
     -- BeastAndBow.xml
     ARROWS = "Arrows",
+    BULLETS = "Bullets",
     BREAD = "Bread",
     FISH = "Fish",
     CHEESE = "Cheese",

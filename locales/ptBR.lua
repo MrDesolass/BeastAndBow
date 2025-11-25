@@ -66,6 +66,7 @@ BeastAndBow_locales["ptBR"] = {
 
     -- BeastAndBow.xml
     ARROWS = "Flechas",
+    BULLETS = "Balas",
     BREAD = "Pão",
     FISH = "Peixe",
     CHEESE = "Queijo",

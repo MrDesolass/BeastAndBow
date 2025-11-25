@@ -194,6 +194,10 @@ BeastAndBow = BeastAndBow or {}
         return totalCount, firstAmmoLink
     end
 
+    function BeastAndBow.FindNearestBulletVendor()
+        BeastAndBow.FindNearestVendor("bullet", BeastAndBow.ArrowVendors)
+    end
+
     local function Update()
         if not frame or not BeastAndBow_Settings then
             if frame then frame:Hide() end
@@ -201,18 +205,27 @@ BeastAndBow = BeastAndBow or {}
         end
 
         local maxCapacity, _ = GetMaxAmmoCapacity(false)
-    bab_print(BeastAndBow.L.DEBUG_UPDATE_CALLED) -- DEBUG
+        
+        -- 1. Zählen (Das bleibt wie es ist)
         local totalAmmo, ammoItemLink = GetTotalAmmoCountAndLink()
-    bab_print(string.format(BeastAndBow.L.DEBUG_UPDATE_RECEIVED, totalAmmo)) -- DEBUG
-    local itemTexture = "Interface\Icons\INV_Misc_Arrow_01"
 
-        if ammoItemLink then
+        -- 2. Das Bild bestimmen (NEUE LOGIK!)
+        -- Standard-Bild, falls alles schiefgeht:
+        local itemTexture = "Interface\\Icons\\INV_Misc_Arrow_01" 
+
+        -- PRIORITÄT A: Was liegt optisch im Munitions-Slot? (Das ist superschnell)
+        local slotTexture = GetInventoryItemTexture("player", INV_AMMO)
+        if slotTexture then
+            itemTexture = slotTexture
+        -- PRIORITÄT B: Falls der Slot leer ist, nimm das Bild von der Munition, die wir in den Taschen gefunden haben.
+        elseif ammoItemLink then
             local _, _, _, _, _, _, _, _, _, texture = Item_GetInfo(ammoItemLink)
             if texture then
                 itemTexture = texture
             end
         end
 
+        -- Ab hier ist alles wie vorher: Anzeigen und Farben
         if BeastAndBow_Settings.frameVisible then frame:Show() else frame:Hide() end
         icon:SetTexture(itemTexture)
         countText:SetText(totalAmmo)
@@ -256,26 +269,51 @@ BeastAndBow = BeastAndBow or {}
     AutoDetectAmmo = function()
         bab_print(BeastAndBow.L.AUTODETECT_AMMO_STARTED)
         if BeastAndBow_Settings.autoDetect then
-            local rangedWeaponLink = GetInventoryItemLink("player", INV_RANGED) -- INVSLOT_RANGED
-            bab_print(string.format(BeastAndBow.L.DEBUG_RANGED_WEAPON_LINK, tostring(rangedWeaponLink))) -- DEBUG
+            -- Reset first
             BeastAndBow_Settings.expectedAmmoClassID = nil
             BeastAndBow_Settings.expectedAmmoSubClassID = nil
-                if rangedWeaponLink then
-                    local _, _, _, _, _, _, _, _, _, _, _, itemClassID, itemSubClassID = Item_GetInfo(rangedWeaponLink)
-                bab_print(string.format(BeastAndBow.L.DEBUG_WEAPON_CLASS, tostring(itemClassID), tostring(itemSubClassID))) -- DEBUG
-                if itemClassID == 2 then -- Class ID for 'Weapon'
-                    if itemSubClassID == 2 or itemSubClassID == 18 then -- SubClass ID for 'Bow' or 'Crossbow'
-                        -- Classic: arrows are ItemClass 6, SubClass 2
-                        BeastAndBow_Settings.expectedAmmoClassID = 6 -- ClassID for Ammo in Classic
-                        BeastAndBow_Settings.expectedAmmoSubClassID = 2 -- Numeric ID for arrows
-                    elseif itemSubClassID == 3 then -- SubClass ID for 'Gun'
-                        -- Classic: bullets are ItemClass 6, SubClass 2/3? use SubClass 3 for bullets
-                        BeastAndBow_Settings.expectedAmmoClassID = 6 -- ClassID for Ammo in Classic
-                        BeastAndBow_Settings.expectedAmmoSubClassID = 3 -- Numeric ID for bullets
+
+            -- 1. Check Weapon (Priority)
+            local rangedWeaponLink = GetInventoryItemLink("player", INV_RANGED) 
+            if rangedWeaponLink then
+                local _, _, _, _, _, _, _, _, _, _, _, itemClassID, itemSubClassID = Item_GetInfo(rangedWeaponLink)
+                if itemClassID == 2 then -- Weapon
+                    if itemSubClassID == 2 or itemSubClassID == 18 then -- Bow/Crossbow
+                        BeastAndBow_Settings.expectedAmmoClassID = 6 
+                        BeastAndBow_Settings.expectedAmmoSubClassID = 2 -- Arrows
+                    elseif itemSubClassID == 3 then -- Gun
+                        BeastAndBow_Settings.expectedAmmoClassID = 6 
+                        BeastAndBow_Settings.expectedAmmoSubClassID = 3 -- Bullets
                     end
                 end
             end
-            bab_print(string.format(BeastAndBow.L.DEBUG_EXPECTED_AMMO_SET, tostring(BeastAndBow_Settings.expectedAmmoClassID), tostring(BeastAndBow_Settings.expectedAmmoSubClassID))) -- DEBUG
+
+            -- 2. Fallback: If no weapon determined the ammo type, check the Ammo Slot (Slot 0)
+            if not BeastAndBow_Settings.expectedAmmoClassID then
+                local ammoSlotLink = GetInventoryItemLink("player", INV_AMMO)
+                if ammoSlotLink then
+                    local _, _, _, _, _, _, _, _, _, _, _, itemClassID, itemSubClassID = Item_GetInfo(ammoSlotLink)
+                    if itemClassID == 6 then -- It is indeed Ammo
+                         BeastAndBow_Settings.expectedAmmoClassID = itemClassID
+                         BeastAndBow_Settings.expectedAmmoSubClassID = itemSubClassID
+                         bab_print("No weapon found, using ammo slot item as reference.")
+                    end
+                end
+            end
+
+            bab_print(string.format(BeastAndBow.L.DEBUG_EXPECTED_AMMO_SET, tostring(BeastAndBow_Settings.expectedAmmoClassID), tostring(BeastAndBow_Settings.expectedAmmoSubClassID))) 
+        end
+
+        -- Update the button text and action
+        local button = BeastAndBowFindArrowButton
+        if not button then return end
+
+        if BeastAndBow_Settings.expectedAmmoSubClassID == 3 then -- Bullets
+            button:SetText(BeastAndBow.L.BULLETS)
+            button:SetScript("OnClick", BeastAndBow.FindNearestBulletVendor)
+        else -- Default to Arrows
+            button:SetText(BeastAndBow.L.ARROWS)
+            button:SetScript("OnClick", BeastAndBow.FindNearestArrowVendor)
         end
     end
 
@@ -375,7 +413,8 @@ BeastAndBow = BeastAndBow or {}
         elseif event == "UNIT_INVENTORY_CHANGED" then
             local unit, slotId = ...
             if unit == "player" then
-                if slotId == INV_RANGED then
+                -- WENN sich die Waffe ändert ODER die Munition ändert -> Neu erkennen!
+                if slotId == INV_RANGED or slotId == INV_AMMO then  -- <--- DAS HIER ERGÄNZEN (or slotId == INV_AMMO)
                     AutoDetectAmmo()
                 end
                 Update()

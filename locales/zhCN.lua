@@ -65,6 +65,7 @@ BeastAndBow_locales["zhCN"] = {
     DEBUG_EXPECTED_AMMO_SET = "预期弹药已设置为 ClassID：%s，SubClassID：%s",
     -- BeastAndBow.xml
     ARROWS = "箭矢",
+    BULLETS = "子弹",
     BREAD = "面包",
     FISH = "鱼",
     CHEESE = "奶酪",
