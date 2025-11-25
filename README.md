@@ -1,4 +1,6 @@
 # BeastAndBow - The Hunter's Essential Toolkit
+screenshot.jpg
+
 A lightweight and responsive Quality-of-Life addon for World of Warcraft: Classic Hunters.
 
 BeastAndBow solves two core problems: constantly checking your inventory for ammunition/food, and quickly finding the nearest vendor in any zone.
