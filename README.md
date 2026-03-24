@@ -33,8 +33,8 @@ BeastAndBow solves two core problems: constantly checking your inventory for amm
 
 If you find a bug, please report it!
 
-* **CurseForge Project Page:** [Hier Link einfügen]
-* **Report an Issue/Suggest a Feature:** [Hier Link zu deiner GitHub Issues Seite einfügen]
+* **CurseForge Project Page:** https://www.curseforge.com/wow/addons/beastandbow
+* **Report an Issue/Suggest a Feature:** https://www.curseforge.com/wow/addons/beastandbow)
 
 ---
 
