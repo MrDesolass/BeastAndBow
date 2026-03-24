@@ -1,0 +1,92 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Stable Memory Frame (custom backdrop, no Blizzard border) -->
+    <Frame name="BeastAndBowStableFrame" inherits="BackdropTemplate" hidden="true" toplevel="true">
+        <Size x="320" y="260"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <!-- Addon background texture -->
+                <Texture file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+                <FontString name="BeastAndBowStableInfoText" inherits="GameFontNormalSmall" text="Last seen stable pets:">
+                    <Anchors>
+                        <Anchor point="TOPLEFT">
+                            <Offset x="20" y="-30"/>
+                        </Anchor>
+                        <Anchor point="TOPRIGHT">
+                            <Offset x="-20" y="-30"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- Custom close button using addon textures -->
+            <Button name="BeastAndBowStableClose" inherits="UIPanelButtonTemplate">
+                <Size x="20" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset x="-4" y="-4"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick> HideUIPanel(BeastAndBowStableFrame) </OnClick>
+                </Scripts>
+            </Button>
+            <ScrollFrame name="BeastAndBowStableScrollFrame" inherits="UIPanelScrollFrameTemplate">
+                <Size x="280" y="160"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="BeastAndBowStableInfoText" relativePoint="BOTTOM">
+                        <Offset x="0" y="-10"/>
+                    </Anchor>
+                </Anchors>
+                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                <ScrollChild>
+                    <EditBox name="BeastAndBowStableList" multiLine="true" letters="1000" autoFocus="false">
+                        <Size x="280" y="160"/>
+                        <Scripts>
+                            <OnEscapePressed> self:ClearFocus() </OnEscapePressed>
+                        </Scripts>
+                        <FontString inherits="ChatFontNormal" />
+                    </EditBox>
+                </ScrollChild>
+                <Scripts>
+                    <OnLoad>
+                        local sb = self.ScrollBar
+                        if sb then
+                            local thumb = sb:GetThumbTexture()
+                            if thumb then
+                                thumb:SetTexture("Interface\\AddOns\\BeastAndBow\\Textures\\scroll_thumb")
+                                if thumb.SetSize then thumb:SetSize(16, 16) end
+                            end
+                            if sb.ScrollUpButton then
+                                local b = sb.ScrollUpButton
+                                if b.SetNormalTexture then b:SetNormalTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_up") end
+                                if b.SetPushedTexture then b:SetPushedTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_up") end
+                                if b.SetDisabledTexture then b:SetDisabledTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_up") end
+                                if b.SetHighlightTexture then b:SetHighlightTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_up", "ADD") end
+                            end
+                            if sb.ScrollDownButton then
+                                local b = sb.ScrollDownButton
+                                if b.SetNormalTexture then b:SetNormalTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_down") end
+                                if b.SetPushedTexture then b:SetPushedTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_down") end
+                                if b.SetDisabledTexture then b:SetDisabledTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_down") end
+                                if b.SetHighlightTexture then b:SetHighlightTexture("Interface\\AddOns\\BeastAndBow\\Textures\\arrow_down", "ADD") end
+                            end
+                        end
+                    </OnLoad>
+                </Scripts>
+            </ScrollFrame>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                -- Remove any default border; BackdropTemplate uses our background only
+                if self.SetBackdrop then self:SetBackdrop(nil) end
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

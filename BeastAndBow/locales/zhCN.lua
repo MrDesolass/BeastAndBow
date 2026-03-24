@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["zhCN"] = {
+    -- 警告
+    LOW_AMMO_WARNING = "注意，弹药不足！",
+    NO_AMMO_WARNING = "注意，你没有弹药了！",
     -- 通用
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "联盟",
@@ -39,7 +42,7 @@ BeastAndBow_locales["zhCN"] = {
     NO_VENDOR_FOUND = "未找到 %s 商人。",
     DEBUG_MODE_ENABLED = "调试模式已启用",
     DEBUG_MODE_DISABLED = "调试模式已禁用",
-    AVAILABLE_COMMANDS = "可用命令：/bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "可用命令：/bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad 已启动。",
     COMBAT_LOG_INFO = "战斗日志：%s，%s，%s，%s",
 
@@ -80,6 +83,63 @@ BeastAndBow_locales["zhCN"] = {
     MUSHROOM_BUTTON_CLICKED = "Beast & Bow：蘑菇按钮已点击",
     MEAT_BUTTON_CLICKED = "Beast & Bow：肉类按钮已点击",
 
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "训练师",
+    STABLE_MASTER = "兽栏管理员",
+    PETS = "宠物",
+    STABLE = "兽栏",
+    INSTINCT = "本能",
+    INSTICT = "本能",
+    MACROS = "宏",
+
     -- BeastAndBow.toc
     NOTES = "跟踪你的弹药并查找最近的箭和宠物食物商人。",
+    -- Options (placeholders)
+    -- 选项菜单
+    OPTIONS_ENABLE_WARNINGS = "启用警告系统",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "为低弹药启用声音、闪烁效果和消息。",
+    OPTIONS_SHOW_FRAME = "显示/隐藏插件",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "在屏幕上显示或隐藏 Beast & Bow 插件界面。",
+    OPTIONS_ENABLE_LOGGING = "启用调试日志",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "启用聊天窗口中的详细日志记录以进行调试。",
+    OPTIONS_COLLAPSE_BUTTONS = "折叠按钮",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "隐藏展开的供应商按钮，仅显示紧凑箭头/图标。",
+    OPTIONS_DEBUG_SECTION = "调试",
+    OPTIONS_DEBUG_MODE = "调试模式",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "启用调试模式以显示详细的诊断信息。这包括来自所有插件系统的详细输出。",
+    OPTIONS_DEBUG_LOG_LEVEL = "调试日志级别",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "设置要显示的最低日志级别。INFO=所有消息，WARN=警告+错误，DEBUG=仅详细，ERROR=仅错误。",
+
+    -- 选项反馈消息
+    WARNING_SYSTEM_ENABLED = "警告系统已启用。",
+    WARNING_SYSTEM_DISABLED = "警告系统已禁用。",
+    FRAME_SHOWN = "弹药计数器现在显示。",
+    FRAME_HIDDEN = "弹药计数器现在隐藏。",
+    LOGGING_ENABLED = "调试日志已启用。",
+    LOGGING_DISABLED = "调试日志已禁用。",
+
+    -- 新增键
+    PET_TRAINER = "宠物训练师",
+    BESTIARY = "宠物图鉴",
+    COMING_SOON = "宠物图鉴",
+    MENU_PETS = "宠物",
+    MENU_ABILITIES = "技能",
+    BACK = "返回",
+    SKILL_TRAINER_INFO = "此技能由宠物训练师教导。使用“宠物训练师”按钮找到最近的一个。",
+    SKILL_NO_PETS_FOUND = "未找到可传授此技能的可驯服宠物。",
+    DEBUG_LEVEL_INFO = "信息 - 所有消息",
+    DEBUG_LEVEL_WARN = "警告 - 警告和错误",
+    DEBUG_LEVEL_DEBUG = "调试 - 仅详细输出",
+    DEBUG_LEVEL_ERROR = "错误 - 仅错误",
+    COPY_FRAME_INFO = "按 Ctrl+C 复制以下文本并将其粘贴到 CurseForge 评论页面。",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - 错误报告/反馈",
+    REPORT_FRAME_INFO = "请在下方描述问题或您的反馈。请提供尽可能多的细节。",
+    GENERATE_REPORT_BUTTON = "生成报告",
+    CLOSE_BUTTON = "关闭",
+    COPY_FRAME_TITLE = "报告已准备好复制",
+    NO_STABLE_MASTER_FOUND = "未找到兽栏管理员。",
+    NO_TRAINER_FOUND = "未找到猎人训练师。",
+    NO_PET_TRAINER_FOUND = "未找到宠物训练师。",
+    MEDIUM_AMMO_WARNING = "长途旅行可能会耗尽弹药！您的补给处于中等水平。",
 }

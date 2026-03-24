@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script>
+		if BeastAndBow and BeastAndBow.IsTBC and BeastAndBow.IsTBC() then
+			BeastAndBow.BestiaryXmlVariant = "TBC"
+		end
+	</Script>
+</Ui>

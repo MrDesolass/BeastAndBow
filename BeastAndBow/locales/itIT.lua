@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["itIT"] = {
+    -- Avvisi
+    LOW_AMMO_WARNING = "Attenzione, munizioni basse!",
+    NO_AMMO_WARNING = "Attenzione, non hai munizioni!",
     -- Generale
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "Alleanza",
@@ -39,7 +42,7 @@ BeastAndBow_locales["itIT"] = {
     NO_VENDOR_FOUND = "Nessun venditore %s trovato.",
     DEBUG_MODE_ENABLED = "Modalità debug attivata",
     DEBUG_MODE_DISABLED = "Modalità debug disattivata",
-    AVAILABLE_COMMANDS = "Comandi disponibili: /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "Comandi disponibili: /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad avviato.",
     COMBAT_LOG_INFO = "Registro combattimenti: %s, %s, %s, %s",
 
@@ -65,7 +68,7 @@ BeastAndBow_locales["itIT"] = {
     DEBUG_EXPECTED_AMMO_SET = "Munizione attesa impostata su ClassID: %s, SubClassID: %s",
 
     -- BeastAndBow.xml
-    ARROWS = "Freccie",
+    ARROWS = "Frecce",
     BULLETS = "Proiettili",
     BREAD = "Pane",
     FISH = "Pesce",
@@ -81,6 +84,63 @@ BeastAndBow_locales["itIT"] = {
     MUSHROOM_BUTTON_CLICKED = "Beast & Bow: pulsante Funghi cliccato",
     MEAT_BUTTON_CLICKED = "Beast & Bow: pulsante Carne cliccato",
 
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "Istruttore",
+    STABLE_MASTER = "Maestro di stalla",
+    PETS = "Famigli",
+    STABLE = "Stalla",
+    INSTINCT = "Istinto",
+    INSTICT = "Istinto",
+    MACROS = "Macro",
+
     -- BeastAndBow.toc
     NOTES = "Tieni traccia delle tue munizioni e trova i venditori di frecce e cibo per animali più vicini.",
+    -- Options (placeholders)
+    -- Menu Opzioni
+    OPTIONS_ENABLE_WARNINGS = "Abilita sistema di avviso",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "Abilita suoni, effetti di lampeggiamento e messaggi per munizioni basse.",
+    OPTIONS_SHOW_FRAME = "Mostra/Nascondi componente aggiuntivo",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "Mostra o nasconde l'interfaccia del componente aggiuntivo Beast & Bow sullo schermo.",
+    OPTIONS_ENABLE_LOGGING = "Abilita registrazione debug",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "Abilita la registrazione dettagliata nella finestra di chat a scopo di debug.",
+    OPTIONS_COLLAPSE_BUTTONS = "Comprimi pulsanti",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "Nasconde i pulsanti del fornitore espansi e mostra solo la freccia/icona compatta.",
+    OPTIONS_DEBUG_SECTION = "Debug",
+    OPTIONS_DEBUG_MODE = "Modalità debug",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "Abilita la modalità debug per visualizzare informazioni diagnostiche dettagliate. Ciò include output dettagliato da tutti i sistemi di componenti aggiuntivi.",
+    OPTIONS_DEBUG_LOG_LEVEL = "Livello del registro di debug",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "Imposta il livello di registro minimo da visualizzare. INFO=tutti i messaggi, WARN=avvisi+errori, DEBUG=solo dettagliato, ERROR=solo errori.",
+
+    -- Messaggi di Feedback delle Opzioni
+    WARNING_SYSTEM_ENABLED = "Sistema di avviso abilitato.",
+    WARNING_SYSTEM_DISABLED = "Sistema di avviso disabilitato.",
+    FRAME_SHOWN = "Il contatore di munizioni è ora visualizzato.",
+    FRAME_HIDDEN = "Il contatore di munizioni è ora nascosto.",
+    LOGGING_ENABLED = "Registrazione di debug abilitata.",
+    LOGGING_DISABLED = "Registrazione di debug disabilitata.",
+
+    -- Nuove chiavi
+    PET_TRAINER = "Addestratore di famigli",
+    BESTIARY = "Bestiario",
+    COMING_SOON = "Bestiario",
+    MENU_PETS = "Famigli",
+    MENU_ABILITIES = "Abilità",
+    BACK = "Indietro",
+    SKILL_TRAINER_INFO = "Questa abilità viene insegnata da un Addestratore di famigli. Usa il pulsante 'Addestratore di famigli' per trovare il più vicino.",
+    SKILL_NO_PETS_FOUND = "Nessun famiglio addomesticabile trovato che insegni questa abilità.",
+    DEBUG_LEVEL_INFO = "INFO - Tutti i messaggi",
+    DEBUG_LEVEL_WARN = "WARN - Avvertimenti ed errori",
+    DEBUG_LEVEL_DEBUG = "DEBUG - Solo output dettagliato",
+    DEBUG_LEVEL_ERROR = "ERROR - Solo errori",
+    COPY_FRAME_INFO = "Premi Ctrl+C per copiare il testo qui sotto e incollarlo nella pagina dei commenti di CurseForge.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - Segnalazione bug / Feedback",
+    REPORT_FRAME_INFO = "Descrivi il problema o il tuo feedback qui sotto. Includi più dettagli possibili.",
+    GENERATE_REPORT_BUTTON = "Genera rapporto",
+    CLOSE_BUTTON = "Chiudi",
+    COPY_FRAME_TITLE = "Rapporto pronto per la copia",
+    NO_STABLE_MASTER_FOUND = "Nessun Maestro di stalla trovato.",
+    NO_TRAINER_FOUND = "Nessun Istruttore dei cacciatori trovato.",
+    NO_PET_TRAINER_FOUND = "Nessun Addestratore di famigli trovato.",
+    MEDIUM_AMMO_WARNING = "Potresti rimanere senza munizioni in un viaggio lungo! La tua scorta è a un livello medio.",
 }

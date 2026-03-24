@@ -1,0 +1,7 @@
+<Bindings>
+    <!-- Binding: triggers a secure click on our hidden /petattack button -->
+    <Binding name="BAB_PETATTACK" header="BEASTANDBOW">
+        local btn = BeastAndBowPetAttackButton
+        if btn then btn:Click() end
+    </Binding>
+</Bindings>

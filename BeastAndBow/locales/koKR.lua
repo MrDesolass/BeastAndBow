@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["koKR"] = {
+    -- 경고
+    LOW_AMMO_WARNING = "주의, 탄약이 부족합니다!",
+    NO_AMMO_WARNING = "주의, 탄약이 없습니다!",
     -- General
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "얼라이언스",
@@ -12,7 +15,7 @@ BeastAndBow_locales["koKR"] = {
     GET_MAX_AMMO_CAPACITY_NOT_AVAILABLE = "GetMaxAmmoCapacity: GetContainerItemLink을 사용할 수 없습니다.",
     STARTING_QUIVER_SEARCH = "디버그용 화살통 검색 시작...",
     BAG_INFO = "가방 %d: '%s', ClassID: '%s', SubClassID: '%s', ItemID: '%s'",
-    KNOWN_QUIVER_CAPACITY = "  -> 알려진 화살통! 수용량: %s",
+    KNOWN_QUIVER_CAPACITY = "  -> 알려진 화살통! 용량: %s",
     UNKNOWN_QUIVER = "  -> 알 수 없는 화살통/탄약 주머니.",
     NO_QUIVER_FOUND = "알려진 화살통을 찾지 못했습니다. 기본값 사용: 800.",
     GET_TOTAL_AMMO_COUNT_NOT_AVAILABLE = "GetTotalAmmoCountAndLink: GetContainerItemLink을 사용할 수 없습니다.",
@@ -39,7 +42,7 @@ BeastAndBow_locales["koKR"] = {
     NO_VENDOR_FOUND = "%s 상인을 찾지 못했습니다.",
     DEBUG_MODE_ENABLED = "디버그 모드 활성화",
     DEBUG_MODE_DISABLED = "디버그 모드 비활성화",
-    AVAILABLE_COMMANDS = "사용 가능한 명령: /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "사용 가능한 명령: /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad 시작.",
     COMBAT_LOG_INFO = "전투 로그: %s, %s, %s, %s",
 
@@ -81,6 +84,63 @@ BeastAndBow_locales["koKR"] = {
     MUSHROOM_BUTTON_CLICKED = "Beast & Bow: 버섯 버튼 클릭",
     MEAT_BUTTON_CLICKED = "Beast & Bow: 고기 버튼 클릭",
 
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "상급자",
+    STABLE_MASTER = "야수 관리인",
+    PETS = "야수",
+    STABLE = "야수 우리",
+    INSTINCT = "본능",
+    INSTICT = "본능",
+    MACROS = "매크로",
+
     -- BeastAndBow.toc
     NOTES = "탄약을 추적하고 가장 가까운 화살 및 애완동물 먹이 상인을 찾습니다.",
+    -- Options (placeholders)
+    -- 옵션 메뉴
+    OPTIONS_ENABLE_WARNINGS = "경고 시스템 활성화",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "탄약 부족 시 소리, 깜박임 효과 및 메시지를 활성화합니다.",
+    OPTIONS_SHOW_FRAME = "애드온 표시/숨기기",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "화면에 Beast & Bow 애드온 인터페이스를 표시하거나 숨깁니다.",
+    OPTIONS_ENABLE_LOGGING = "디버그 로깅 활성화",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "디버깅 목적으로 채팅 창에서 자세한 로깅을 활성화합니다.",
+    OPTIONS_COLLAPSE_BUTTONS = "버튼 축소",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "확장된 공급업체 버튼을 숨기고 콤팩트 화살표/아이콘만 표시합니다.",
+    OPTIONS_DEBUG_SECTION = "디버그",
+    OPTIONS_DEBUG_MODE = "디버그 모드",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "디버그 모드를 활성화하여 자세한 진단 정보를 표시합니다. 여기에는 모든 애드온 시스템의 자세한 출력이 포함됩니다.",
+    OPTIONS_DEBUG_LOG_LEVEL = "디버그 로그 레벨",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "표시할 최소 로그 레벨을 설정합니다. INFO=모든 메시지, WARN=경고+오류, DEBUG=자세한 메시지만, ERROR=오류만.",
+
+    -- 옵션 피드백 메시지
+    WARNING_SYSTEM_ENABLED = "경고 시스템이 활성화되었습니다.",
+    WARNING_SYSTEM_DISABLED = "경고 시스템이 비활성화되었습니다.",
+    FRAME_SHOWN = "탄약 카운터가 이제 표시됩니다.",
+    FRAME_HIDDEN = "탄약 카운터가 이제 숨겨졌습니다.",
+    LOGGING_ENABLED = "디버그 로깅이 활성화되었습니다.",
+    LOGGING_DISABLED = "디버그 로깅이 비활성화되었습니다.",
+
+    -- 새로운 키
+    PET_TRAINER = "야수 조련사",
+    BESTIARY = "야수 도감",
+    COMING_SOON = "야수 도감",
+    MENU_PETS = "야수",
+    MENU_ABILITIES = "기술",
+    BACK = "뒤로",
+    SKILL_TRAINER_INFO = "이 기술은 야수 조련사에게서 배울 수 있습니다. '야수 조련사' 버튼을 사용하여 가장 가까운 조련사를 찾으세요.",
+    SKILL_NO_PETS_FOUND = "이 기술을 가르치는 길들일 수 있는 야수를 찾을 수 없습니다.",
+    DEBUG_LEVEL_INFO = "INFO - 모든 메시지",
+    DEBUG_LEVEL_WARN = "WARN - 경고 및 오류",
+    DEBUG_LEVEL_DEBUG = "DEBUG - 자세한 정보만",
+    DEBUG_LEVEL_ERROR = "ERROR - 오류만",
+    COPY_FRAME_INFO = "아래 텍스트를 복사하려면 Ctrl+C를 누르고 CurseForge 댓글 페이지에 붙여넣으세요.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - 버그 제보 / 피드백",
+    REPORT_FRAME_INFO = "아래에 문제나 피드백을 설명해주세요. 가능한 한 자세하게 포함해주세요.",
+    GENERATE_REPORT_BUTTON = "보고서 생성",
+    CLOSE_BUTTON = "닫기",
+    COPY_FRAME_TITLE = "복사할 준비가 된 보고서",
+    NO_STABLE_MASTER_FOUND = "야수 관리인을 찾을 수 없습니다.",
+    NO_TRAINER_FOUND = "사냥꾼 상급자를 찾을 수 없습니다.",
+    NO_PET_TRAINER_FOUND = "야수 조련사를 찾을 수 없습니다.",
+    MEDIUM_AMMO_WARNING = "장거리 여행 시 탄약이 부족할 수 있습니다! 보급품이 중간 수준입니다.",
 }

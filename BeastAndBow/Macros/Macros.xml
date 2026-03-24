@@ -1,0 +1,1942 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="BeastAndBowMacrosFrame" inherits="BackdropTemplate" hidden="true" toplevel="true">
+        <Size x="400" y="460"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Scripts>
+            <OnShow>
+                BeastAndBow.OnMacroFrameShow()
+            </OnShow>
+        </Scripts>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+                <FontString name="$parentWelcomeText" inherits="GameFontNormal" text="Willkommen bei den Jäger Makros, du wirst hier eine Menge interessante makros finden, die dir dein leben enorm erleichtern!  Viel Spaß damit!">
+                    <Size x="360" y="0"/>
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset x="0" y="-20"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- Close button -->
+            <Button name="$parentCloseButton" inherits="UIPanelButtonTemplate">
+                <Size x="20" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset x="-4" y="-4"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick> HideUIPanel(BeastAndBowMacrosFrame) </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Initial View Button -->
+            <Button name="$parentShowMacrosButton" inherits="UIPanelButtonTemplate">
+                <Size x="160" y="22"/>
+                <Anchors>
+                    <Anchor point="CENTER">
+                        <Offset x="0" y="0"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                <Scripts>
+                    <OnLoad> self:SetText("Zeige mir die Makros") </OnLoad>
+                    <OnClick> BeastAndBow.ShowMacrosList() </OnClick>
+                </Scripts>
+            </Button>
+
+            <CheckButton name="$parentDoNotShowAgain" inherits="UICheckButtonTemplate">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+                        <Offset x="20" y="20"/>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        BeastAndBow.ToggleShowMacroWelcome(self:GetChecked());
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
+            <!-- Page 1 Container -->
+            <Frame name="$parentPage1" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentMacrosIntroText" inherits="GameFontNormal" text="Hier findest du das Makro für die Pet angreifen Funktion. Klicke auf die jeweiligen Buttons um dir dieMakros zu erstellen.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-20"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentMacro1Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-15" y="-80"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Schlangenbiss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro1() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro1DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro1Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Schlangenbiss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro1Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Arkaner Schuss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro2() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro2Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Arkaner Schuss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro2Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Erschütternder Schuss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro3() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro3Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Erschütternder Schuss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro3Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Mehrfachschuss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro4Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Mehrfachschuss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro4Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Skorpidstich") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro5() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro5Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Skorpidstich", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro5Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Vipernbiss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro6() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro6Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Vipernbiss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro6Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Gezielter Schuss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro7() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro7Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Gezielter Schuss", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro8Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro7Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Pet Attack: Automatischer Schuss") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro16() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro8DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="20" y="20"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro8Button" relativePoint="RIGHT">
+                                <Offset x="5" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("PetAtk: Auto", "PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllButton" inherits="UIPanelButtonTemplate">
+                        <Size x="225" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro8Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-25"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche PetAttack-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("PetAttack") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentNextPageButton" inherits="UIPanelButtonTemplate" text="Weiter">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset x="-20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage2() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+            
+            <!-- Page 2 Container -->
+            <Frame name="$parentPage2" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentPage2Title" inherits="GameFontNormal" text="Tier-Management: Wähle die passende Makro-Variante für deine Bedürfnisse.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-15"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parentPage2Subtitle" inherits="GameFontNormalSmall" text="Nur Heilen/Wiederbeleben (ruft das Tier NICHT):">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-35"/>
+                                </Anchor>
+                            </Anchors>
+                            <Color r="1.0" g="0.82" b="0.0"/>
+                        </FontString>
+                        <FontString name="$parentPage2Subtitle2" inherits="GameFontNormalSmall" text="Heilen/Wiederbeleben/Rufen (ruft das Tier wenn weg):">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-173"/>
+                                </Anchor>
+                            </Anchors>
+                            <Color r="1.0" g="0.82" b="0.0"/>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <!-- Category 1: Heal/Revive only (no Call) -->
+                    <Button name="$parentMacro11Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-20" y="-55"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Heilen/Wiederbeleben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro11() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro11DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro11Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Heilen/Wiederbeleben", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro12Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro11Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Shift: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro12() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro12DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro12Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Heilen/Wiederb. (Shift-&gt;Freigeben)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro13Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro12Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Strg: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro13() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro13DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro13Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Heilen/Wiederb. (Strg-&gt;Freigeben)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro14Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro13Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Alt: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro14() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro14DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro14Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Heilen/Wiederb. (Alt-&gt;Freigeben)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <!-- Category 2: Heal/Revive/Call -->
+                    <Button name="$parentMacro15Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-20" y="-193"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Heilen/Wiederb./Rufen") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro15() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro15DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro15Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Heilen/Wiederb./Rufen", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro8Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro15Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Shift: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro8() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro8DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro8Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("B&amp;B AIO (Shift)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro9Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro8Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Strg: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro9() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro9DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro9Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("B&amp;B AIO (Ctrl)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro10Button" inherits="UIPanelButtonTemplate">
+                        <Size x="185" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro9Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("+ Alt: Freigeben") </OnLoad>
+                            <OnClick> BeastAndBow.CreateMacro10() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro10DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro10Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("B&amp;B AIO (Alt)", "AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllAIOButton" inherits="UIPanelButtonTemplate">
+                        <Size x="207" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro10Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-15"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche Tier-Management-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("AllInOne") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentBackButton" inherits="UIPanelButtonTemplate" text="Zurück">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT">
+                                <Offset x="20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacrosList() </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentNextPage2Button" inherits="UIPanelButtonTemplate" text="Weiter">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset x="-20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage3() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+            <Frame name="$parentPage3" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentPage3Title" inherits="GameFontNormal" text="Fallen-Makros: Verschiedene Kombinationen mit Modifiern.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-15"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentMacro1Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-15" y="-50"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Eiskälte + Frost (Shift)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroCombo1() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro1DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro1Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Eiskälte+Frost", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro1Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Feuerbrand + Spreng (Shift)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroCombo2() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro2Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Feuerbrand+Spreng", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro3Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro2Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Eiskälte + Schlange (Shift)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroCombo3() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro3Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Eiskälte+Schlange", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro4Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro3Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Feuerbrand + Schlange (Shift)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroCombo4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro4Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Feuerbrand+Schlange", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro5Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro4Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Eiskälte + Feuerbrand (Shift)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroCombo5() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro5Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Eiskälte+Feuerbrand", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro6Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro5Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Alle 4 Standard") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroAll4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro6Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Alle 4 Standard", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro7Button" inherits="UIPanelButtonTemplate">
+                        <Size x="210" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro6Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Mit Schlange-Variante") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrapMacroAllSnake() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro7Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Fallen: Mit Schlange", "Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllTrapsButton" inherits="UIPanelButtonTemplate">
+                        <Size x="232" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro7Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-12"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche Fallen-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("Traps") </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentPage3BackButton" inherits="UIPanelButtonTemplate" text="Zurück">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT">
+                                <Offset x="20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage2() </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage3NextButton" inherits="UIPanelButtonTemplate" text="Weiter">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset x="-20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage4() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+
+            <!-- Page 4 Container -->
+            <Frame name="$parentPage4" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentPage4Title" inherits="GameFontNormal" text="Aspekt-Kombos: Unterschiedliche Varianten für alle Situationen.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-15"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentMacro1Button" inherits="UIPanelButtonTemplate">
+                        <Size x="300" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-20" y="-50"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Falken (Shift: Geparden)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro1() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro1DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro1Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Falken/Geparden", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro1Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Rudels (Shift: Geparden)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro2() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro2Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Rudels/Geparden", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro3Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro2Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Falken (Shift: Affen)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro3() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro3Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Falken/Affen", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro4Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro3Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Wildnis (Shift: Viper)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro4Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Wildnis/Viper", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro5Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro4Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Falken (Shift: Viper)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro5() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro5Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Falken/Viper", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro6Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro5Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Geparden (Strg: Viper)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro6() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro6Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Geparden/Viper", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro7Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro6Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Rudels (Shift: Viper)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro7() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro7Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Rudels/Viper", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro8Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro7Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Affen (Shift: Viper)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro8() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro8DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro8Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Affen/Viper", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro9Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro8Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Wildnis (Shift: Geparden)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro9() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro9DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro9Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Wildnis/Geparden", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro10Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro9Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Wildnis (Shift: Affen)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateAspectMacro10() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro10DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro10Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Aspekt-Kombo: Wildnis/Affen", "Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllAspectsButton" inherits="UIPanelButtonTemplate">
+                        <Size x="232" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro10Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-12"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche Aspekt-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("Aspects") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage4BackButton" inherits="UIPanelButtonTemplate" text="Zurück">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT">
+                                <Offset x="20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage3() </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage4NextButton" inherits="UIPanelButtonTemplate" text="Weiter">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset x="-20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage5() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+
+            <!-- Page 5 Container: Tracking Combos -->
+            <Frame name="$parentPage5" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentPage5Title" inherits="GameFontNormal" text="Tracking-Kombos: Verschiedene Spurenfähigkeits-Kombinationen.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-15"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentMacro1Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-20" y="-50"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Wildtiere (Shift: Humanoide)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro1() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro1DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro1Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Wildtiere/Humanoide", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro1Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Wildtiere (Shift: Dämonen)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro2() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro2Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Wildtiere/Dämonen", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro3Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro2Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Humanoide (Shift: Untote)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro3() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro3Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Humanoide/Untote", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro4Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro3Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Elementare (Shift: Riesen)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro4Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Elementare/Riesen", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro5Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro4Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Verborgenes (Shift: Drachkin)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro5() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro5Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Verborgenes/Drachkin", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro6Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro5Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Dämonen (Shift: Untote)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro6() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro6Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Dämonen/Untote", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro7Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro6Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Humanoide (Strg: Dämonen)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro7() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro7Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Humanoide/Dämonen", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro8Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro7Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Elementare (Shift: Drachkin)") </OnLoad>
+                            <OnClick> BeastAndBow.CreateTrackingMacro8() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro8DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro8Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Tracking-Kombo: Elementare/Drachkin", "Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllTrackingButton" inherits="UIPanelButtonTemplate">
+                        <Size x="232" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro8Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-12"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche Tracking-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("Tracking") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage5BackButton" inherits="UIPanelButtonTemplate" text="Zurück">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT">
+                                <Offset x="20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage4() </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage5NextButton" inherits="UIPanelButtonTemplate" text="Weiter">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset x="-20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage6() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+
+            <!-- Page 6 Container: Melee Combat Combos -->
+            <Frame name="$parentPage6" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentPage6Title" inherits="GameFontNormal" text="Melee-Kombos: Raptorstoß, Mungobiss und Zurechtstutzen Kombinationen.">
+                            <Size x="360" y="0"/>
+                            <Anchors>
+                                <Anchor point="TOP">
+                                    <Offset x="0" y="-15"/>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentMacro1Button" inherits="UIPanelButtonTemplate">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="-20" y="-50"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Raptorstoß (Shift: Mungo / Strg: Zurechtst)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro1() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro1DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro1Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Raptorstoß/Mungobiss/Zurechtstutzen", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro1Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Raptorstoß (Shift: Zurechtst / Strg: Mungo)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro2() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro2DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro2Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Raptorstoß/Zurechtstutzen/Mungobiss", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro3Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro2Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Mungobiss (Shift: Raptor / Strg: Zurechtst)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro3() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro3DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro3Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Mungobiss/Raptorstoß/Zurechtstutzen", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro4Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro3Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Mungobiss (Shift: Zurechtst / Strg: Raptor)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro4() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro4DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro4Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Mungobiss/Zurechtstutzen/Raptorstoß", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro5Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro4Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Zurechtst (Shift: Raptor / Strg: Mungo)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro5() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro5DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro5Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Zurechtstutzen/Raptorstoß/Mungobiss", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro6Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro5Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Zurechtst (Shift: Mungo / Strg: Raptor)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro6() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro6DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro6Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Zurechtstutzen/Mungobiss/Raptorstoß", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro7Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro6Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Raptorstoß (Shift: Mungo / Strg: Mungo)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro7() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro7DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro7Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Raptorstoß/Mungobiss (Strg)", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentMacro8Button" inherits="UIPanelButtonTemplate">
+                        <Size x="260" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro7Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-6"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText("Mungobiss (Shift: Raptor / Strg: Raptor)")
+                            </OnLoad>
+                            <OnClick> BeastAndBow.CreateMeleeMacro8() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="$parentMacro8DeleteButton" inherits="UIPanelButtonTemplate">
+                        <Size x="18" y="18"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parentMacro8Button" relativePoint="RIGHT">
+                                <Offset x="4" y="1"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.DeleteSingleMacro("Melee-Kombo: Mungobiss/Raptorstoß (Strg)", "Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentDeleteAllMeleeButton" inherits="UIPanelButtonTemplate">
+                        <Size x="232" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativeTo="$parentMacro8Button" relativePoint="BOTTOM">
+                                <Offset x="0" y="-12"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText("Lösche Melee-Makros") </OnLoad>
+                            <OnClick> BeastAndBow.DeleteMacrosByGroup("Melee") </OnClick>
+                        </Scripts>
+                    </Button>
+
+                    <Button name="$parentPage6BackButton" inherits="UIPanelButtonTemplate" text="Zurück">
+                        <Size x="80" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT">
+                                <Offset x="20" y="20"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnClick> BeastAndBow.ShowMacroPage5() </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

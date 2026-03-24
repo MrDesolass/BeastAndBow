@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["ptBR"] = {
+    -- Alertas
+    LOW_AMMO_WARNING = "Atenção, pouca munição!",
+    NO_AMMO_WARNING = "Atenção, você está sem munição!",
     -- Geral
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "Aliança",
@@ -10,11 +13,11 @@ BeastAndBow_locales["ptBR"] = {
 
     -- BeastAndBow.lua
     GET_MAX_AMMO_CAPACITY_NOT_AVAILABLE = "GetMaxAmmoCapacity: GetContainerItemLink não disponível.",
-    STARTING_QUIVER_SEARCH = "Iniciando busca por carcaxe para depuração...",
+    STARTING_QUIVER_SEARCH = "Iniciando busca por aljava para depuração...",
     BAG_INFO = "Mochila %d: '%s', ClassID: '%s', SubClassID: '%s', ItemID: '%s'",
-    KNOWN_QUIVER_CAPACITY = "  -> Carcaxe conhecido! Capacidade: %s",
-    UNKNOWN_QUIVER = "  -> Carcaxe / bolsa de munição desconhecida.",
-    NO_QUIVER_FOUND = "Nenhum carcaxe conhecido encontrado. Usando fallback: 800.",
+    KNOWN_QUIVER_CAPACITY = "  -> Aljava conhecida! Capacidade: %s",
+    UNKNOWN_QUIVER = "  -> Aljava / bolsa de munição desconhecida.",
+    NO_QUIVER_FOUND = "Nenhuma aljava conhecida encontrada. Usando valor padrão: 800.",
     GET_TOTAL_AMMO_COUNT_NOT_AVAILABLE = "GetTotalAmmoCountAndLink: GetContainerItemLink não disponível.",
     GET_CONTAINER_NUM_SLOTS_NOT_AVAILABLE = "GetTotalAmmoCountAndLink: GetContainerNumSlots não disponível.",
     AUTODETECT_AMMO_STARTED = "AutoDetectAmmo iniciado.",
@@ -39,7 +42,7 @@ BeastAndBow_locales["ptBR"] = {
     NO_VENDOR_FOUND = "Nenhum vendedor %s encontrado.",
     DEBUG_MODE_ENABLED = "Modo debug ativado",
     DEBUG_MODE_DISABLED = "Modo debug desativado",
-    AVAILABLE_COMMANDS = "Comandos disponíveis: /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "Comandos disponíveis: /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad iniciado.",
     COMBAT_LOG_INFO = "Registro de combate: %s, %s, %s, %s",
 
@@ -62,25 +65,81 @@ BeastAndBow_locales["ptBR"] = {
     DEBUG_UPDATE_RECEIVED = "Update() recebeu totalAmmo: %d",
     DEBUG_RANGED_WEAPON_LINK = "Link da arma de longo alcance: %s",
     DEBUG_WEAPON_CLASS = "Classe da arma: %s, SubClasse: %s",
-    DEBUG_EXPECTED_AMMO_SET = "Munição esperada definida para ClassID: %s, SubClassID: %s",
+    DEBUG_EXPECTED_AMMO_SET = "Munição esperada definida como ClassID: %s, SubClassID: %s",
 
-    -- BeastAndBow.xml
+    -- BeastAndBow.xml - Botões
     ARROWS = "Flechas",
-    BULLETS = "Balas",
+    BULLETS = "Projéteis",
     BREAD = "Pão",
     FISH = "Peixe",
     CHEESE = "Queijo",
     FRUITS = "Frutas",
-    MUSHROOMS = "Cogumelos",
+    MUSHROOMS = "Fungos",
     MEAT = "Carne",
-    ARROW_BUTTON_CLICKED = "Beast & Bow: botão Flechas pressionado",
-    BREAD_BUTTON_CLICKED = "Beast & Bow: botão Pão pressionado",
-    FISH_BUTTON_CLICKED = "Beast & Bow: botão Peixe pressionado",
-    CHEESE_BUTTON_CLICKED = "Beast & Bow: botão Queijo pressionado",
-    FRUIT_BUTTON_CLICKED = "Beast & Bow: botão Frutas pressionado",
-    MUSHROOM_BUTTON_CLICKED = "Beast & Bow: botão Cogumelos pressionado",
-    MEAT_BUTTON_CLICKED = "Beast & Bow: botão Carne pressionado",
+    ARROW_BUTTON_CLICKED = "Beast & Bow: Botão de flecha clicado",
+    BREAD_BUTTON_CLICKED = "Beast & Bow: Botão de pão clicado",
+    FISH_BUTTON_CLICKED = "Beast & Bow: Botão de peixe clicado",
+    CHEESE_BUTTON_CLICKED = "Beast & Bow: Botão de queijo clicado",
+    FRUIT_BUTTON_CLICKED = "Beast & Bow: Botão de fruta clicado",
+    MUSHROOM_BUTTON_CLICKED = "Beast & Bow: Botão de fungo clicado",
+    MEAT_BUTTON_CLICKED = "Beast & Bow: Botão de carne clicado",
+
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "Treinador",
+    STABLE_MASTER = "Mestre de Estábulo",
+    PETS = "Mascotes",
+    STABLE = "Estábulo",
+    INSTINCT = "Instinto",
+    INSTICT = "Instinto",
+    MACROS = "Macros",
 
     -- BeastAndBow.toc
     NOTES = "Acompanha sua munição e encontra os vendedores de flechas e ração para mascotes mais próximos.",
+    -- Menu de Opções
+    OPTIONS_ENABLE_WARNINGS = "Ativar Sistema de Aviso",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "Ativa sons, efeitos de piscar e mensagens para munição baixa.",
+    OPTIONS_SHOW_FRAME = "Mostrar/Ocultar complemento",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "Mostra ou oculta a interface do complemento Beast & Bow na sua tela.",
+    OPTIONS_ENABLE_LOGGING = "Ativar Log de Depuração",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "Ativa o log detalhado na janela de bate-papo para fins de depuração.",
+    OPTIONS_COLLAPSE_BUTTONS = "Recolher Botões",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "Oculta os botões de fornecedor expandidos e mostra apenas a seta/ícone compacta.",
+    OPTIONS_DEBUG_SECTION = "Depuração",
+    OPTIONS_DEBUG_MODE = "Modo de Depuração",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "Ative o modo de depuração para exibir informações de diagnóstico detalhadas. Isso inclui saída detalhada de todos os sistemas de complemento.",
+    OPTIONS_DEBUG_LOG_LEVEL = "Nível de Log de Depuração",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "Defina o nível de log mínimo a ser exibido. INFO=todas as mensagens, WARN=avisos+erros, DEBUG=apenas detalhado, ERROR=apenas erros.",
+
+    -- Mensagens de Feedback de Opções
+    WARNING_SYSTEM_ENABLED = "Sistema de avisos ativado.",
+    WARNING_SYSTEM_DISABLED = "Sistema de avisos desativado.",
+    FRAME_SHOWN = "O contador de munição agora está visível.",
+    FRAME_HIDDEN = "O contador de munição agora está oculto.",
+    LOGGING_ENABLED = "Log de depuração ativado.",
+    LOGGING_DISABLED = "Log de depuração desativado.",
+
+    -- Novas chaves
+    PET_TRAINER = "Treinador de Mascotes",
+    BESTIARY = "Bestiário",
+    COMING_SOON = "Bestiário",
+    MENU_PETS = "Mascotes",
+    MENU_ABILITIES = "Habilidades",
+    BACK = "Voltar",
+    SKILL_TRAINER_INFO = "Esta habilidade é ensinada por um Treinador de Mascotes. Use o botão 'Treinador de Mascotes' para localizar o mais próximo.",
+    SKILL_NO_PETS_FOUND = "Nenhum mascote domável encontrado que ensine esta habilidade.",
+    DEBUG_LEVEL_INFO = "INFO - Todas as mensagens",
+    DEBUG_LEVEL_WARN = "WARN - Avisos e erros",
+    DEBUG_LEVEL_DEBUG = "DEBUG - Apenas saída detalhada",
+    DEBUG_LEVEL_ERROR = "ERROR - Apenas erros",
+    COPY_FRAME_INFO = "Pressione Ctrl+C para copiar o texto abaixo e colá-lo na página de comentários do CurseForge.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - Relatório de Bug / Feedback",
+    REPORT_FRAME_INFO = "Descreva o problema ou seu feedback abaixo. Inclua o máximo de detalhes possível.",
+    GENERATE_REPORT_BUTTON = "Gerar Relatório",
+    CLOSE_BUTTON = "Fechar",
+    COPY_FRAME_TITLE = "Relatório Pronto para Copiar",
+    NO_STABLE_MASTER_FOUND = "Nenhum Mestre de Estábulo encontrado.",
+    NO_TRAINER_FOUND = "Nenhum Treinador de Caçador encontrado.",
+    NO_PET_TRAINER_FOUND = "Nenhum Treinador de Mascotes encontrado.",
+    MEDIUM_AMMO_WARNING = "Você pode ficar sem munição em uma jornada longa! Seu suprimento está em um nível médio.",
 }

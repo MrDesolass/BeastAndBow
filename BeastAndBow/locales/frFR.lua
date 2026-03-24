@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["frFR"] = {
+    -- Alertes
+    LOW_AMMO_WARNING = "Attention, munitions faibles !",
+    NO_AMMO_WARNING = "Attention, vous n'avez plus de munitions !",
     -- Général
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "Alliance",
@@ -39,7 +42,7 @@ BeastAndBow_locales["frFR"] = {
     NO_VENDOR_FOUND = "Aucun marchand %s trouvé.",
     DEBUG_MODE_ENABLED = "Mode debug activé",
     DEBUG_MODE_DISABLED = "Mode debug désactivé",
-    AVAILABLE_COMMANDS = "Commandes disponibles : /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "Commandes disponibles : /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad démarré.",
     COMBAT_LOG_INFO = "Journal de combat : %s, %s, %s, %s",
 
@@ -62,10 +65,11 @@ BeastAndBow_locales["frFR"] = {
     DEBUG_UPDATE_RECEIVED = "Update() a reçu totalAmmo : %d",
     DEBUG_RANGED_WEAPON_LINK = "Lien arme à distance : %s",
     DEBUG_WEAPON_CLASS = "Classe arme : %s, Sous-classe : %s",
-    DEBUG_EXPECTED_AMMO_SET = "Munitions attendues définies sur ClassID : %s, SubClassID : %s",
-    -- BeastAndBow.xml
+    DEBUG_EXPECTED_AMMO_SET = "Munitées attendues définies sur ClassID : %s, SubClassID : %s",
+
+    -- BeastAndBow.xml - Boutons
     ARROWS = "Flèches",
-    BULLETS = "Balles",
+    BULLETS = "Projectiles",
     BREAD = "Pain",
     FISH = "Poisson",
     CHEESE = "Fromage",
@@ -80,6 +84,62 @@ BeastAndBow_locales["frFR"] = {
     MUSHROOM_BUTTON_CLICKED = "Beast & Bow : bouton Champignons cliqué",
     MEAT_BUTTON_CLICKED = "Beast & Bow : bouton Viande cliqué",
 
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "Maître",
+    STABLE_MASTER = "Maître des écuries",
+    PETS = "Familiers",
+    STABLE = "Écurie",
+    INSTINCT = "Instinct",
+    INSTICT = "Instinct",
+    MACROS = "Macros",
+
     -- BeastAndBow.toc
     NOTES = "Suit vos munitions et trouve les marchands de flèches et de nourriture pour familiers les plus proches.",
+    -- Options Menu
+    OPTIONS_ENABLE_WARNINGS = "Activer le système d'avertissement",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "Active les sons, les effets de clignotement et les messages pour les munitions faibles.",
+    OPTIONS_SHOW_FRAME = "Afficher/Masquer l'extension",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "Affiche ou masque l'interface de l'extension Beast & Bow sur votre écran.",
+    OPTIONS_ENABLE_LOGGING = "Activer la journalisation de débogage",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "Active la journalisation détaillée dans la fenêtre de chat à des fins de débogage.",
+    OPTIONS_COLLAPSE_BUTTONS = "Réduire les boutons",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "Masque les boutons de fournisseur développés et affiche uniquement la flèche/icône compacte.",
+    OPTIONS_DEBUG_SECTION = "Débogage",
+    OPTIONS_DEBUG_MODE = "Mode Débogage",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "Activez le mode débogage pour afficher les informations de diagnostic détaillées. Cela inclut une sortie détaillée de tous les systèmes d'extension.",
+    OPTIONS_DEBUG_LOG_LEVEL = "Niveau de journal de débogage",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "Définissez le niveau de journal minimum à afficher. INFO=tous les messages, WARN=avertissements+erreurs, DEBUG=verbose uniquement, ERROR=erreurs uniquement.",
+
+    -- Options Feedback Messages
+    WARNING_SYSTEM_ENABLED = "Système d'avertissement activé.",
+    WARNING_SYSTEM_DISABLED = "Système d'avertissement désactivé.",
+    FRAME_SHOWN = "Le compteur de munitions est maintenant affiché.",
+    FRAME_HIDDEN = "Le compteur de munitions est maintenant masqué.",
+    LOGGING_ENABLED = "Journalisation de débogage activée.",
+    LOGGING_DISABLED = "Journalisation de débogage désactivée.",
+
+    -- Nouvelles clés
+    PET_TRAINER = "Maître des familiers",
+    BESTIARY = "Bestiaire",
+    COMING_SOON = "Bestiaire",
+    MENU_PETS = "Familiers",
+    MENU_ABILITIES = "Compétences",
+    BACK = "Retour",
+    SKILL_TRAINER_INFO = "Cette compétence est enseignée par un maître des familiers. Utilisez le bouton 'Maître des familiers' pour trouver le plus proche.",
+    SKILL_NO_PETS_FOUND = "Aucun familier domptable trouvé qui enseigne cette compétence.",
+    DEBUG_LEVEL_INFO = "INFO - Tous les messages",
+    DEBUG_LEVEL_WARN = "WARN - Avertissements et erreurs",
+    DEBUG_LEVEL_DEBUG = "DEBUG - Sortie détaillée uniquement",
+    DEBUG_LEVEL_ERROR = "ERROR - Erreurs uniquement",
+    COPY_FRAME_INFO = "Appuyez sur Ctrl+C pour copier le texte ci-dessous et le coller sur la page de commentaires de CurseForge.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - Rapport de bug / Feedback",
+    REPORT_FRAME_INFO = "Veuillez décrire le problème ou votre feedback ci-dessous. Incluez autant de détails que possible.",
+    GENERATE_REPORT_BUTTON = "Générer le rapport",
+    CLOSE_BUTTON = "Fermer",
+    COPY_FRAME_TITLE = "Rapport prêt à être copié",
+    NO_STABLE_MASTER_FOUND = "Aucun Maître des écuries trouvé.",
+    NO_TRAINER_FOUND = "Aucun Maître des chasseurs trouvé.",
+    NO_PET_TRAINER_FOUND = "Aucun Maître des familiers trouvé.",
+    MEDIUM_AMMO_WARNING = "Vous pourriez manquer de munitions lors d'un long voyage ! Votre stock est à un niveau moyen.",
 }

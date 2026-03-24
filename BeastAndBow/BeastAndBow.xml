@@ -1,15 +1,16 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Frame name="BeastAndBowFrame" inherits="BasicFrameTemplate" movable="true" hidden="true">
-        <Size x="180" y="230"/>
+    <Frame name="BeastAndBowFrame" inherits="BackdropTemplate" movable="true" hidden="true" enableMouse="true" toplevel="true">
+        <!-- Expanded height - will be dynamically adjusted when collapsed; width widened for second page layout -->
+        <Size x="240" y="265"/>
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="BeastAndBowFrameTitle" inherits="GameFontNormalLarge" text="|cff9482c9Beast &amp; Bow|r">
+                <FontString name="BeastAndBowFrameTitle" inherits="GameFontNormalLarge" text="|cff6fbf3fBeast &amp; Bow|r">
                     <Anchors>
                         <Anchor point="TOP">
-                            <Offset x="0" y="-6"/>
+                            <Offset x="-7" y="-4"/>
                         </Anchor>
                     </Anchors>
                     <Shadow>
@@ -19,11 +20,11 @@
                         <Color r="0" g="0" b="0"/>
                     </Shadow>
                 </FontString>
-                <Texture name="BeastAndBowFrameIcon">
+                <Texture name="BeastAndBowFrameIcon" file="Interface\\Icons\\INV_Misc_Arrow_01">
                     <Size x="32" y="32"/>
                     <Anchors>
                         <Anchor point="TOP">
-                            <Offset x="0" y="-45"/>
+                            <Offset x="0" y="-50"/>
                         </Anchor>
                     </Anchors>
                 </Texture>
@@ -37,122 +38,456 @@
             </Layer>
         </Layers>
         <Frames>
-            <Button name="BeastAndBowFindArrowButton" inherits="UIPanelButtonTemplate">
-                <Size x="144" y="25"/>
+            <!-- Ammo Quick Change Button -->
+            <Button name="BeastAndBowAmmoChangeButton" parent="BeastAndBowFrame" enableMouse="false" hidden="true">
+                <Size x="32" y="32"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="BeastAndBowFrameIcon"/>
+                </Anchors>
+            </Button>
+            <!-- Close Button -->
+            <Button name="BeastAndBowCloseButton" inherits="UIPanelButtonTemplate" parent="BeastAndBowFrame">
+                <Size x="20" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFrame" relativePoint="TOPRIGHT">
+                        <Offset x="-4" y="-4"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick>
+                        BeastAndBow_Settings.frameVisible = false
+                        self:GetParent():Hide()
+                    </OnClick>
+                    <OnEnter>
+                        if GameTooltip then
+                            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                            GameTooltip:SetText("Close")
+                            GameTooltip:Show()
+                        end
+                    </OnEnter>
+                    <OnLeave>
+                        if GameTooltip then GameTooltip:Hide() end
+                    </OnLeave>
+                </Scripts>
+            </Button>
+            <!-- Buttons container: can be hidden to create a compact collapsed frame -->
+            <Frame name="BeastAndBowButtonsContainer">
+                <!-- Reduced height to actual button stack (~124 + padding) -->
+                <Size x="180" y="140"/>
                 <Anchors>
                     <Anchor point="TOP" relativeTo="BeastAndBowFrameCount" relativePoint="BOTTOM">
+                        <Offset x="0" y="-10"/>
+                    </Anchor>
+                </Anchors>
+                <Frames>
+                    <Button name="BeastAndBowFindArrowButton" inherits="UIPanelButtonTemplate">
+                        <Size x="140" y="24"/>
+                        <Anchors>
+                            <Anchor point="TOP"/>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\\Icons\\INV_Misc_Arrow_01">
+                                    <Size x="18" y="18"/>
+                                    <Anchors>
+                                        <Anchor point="LEFT">
+                                            <Offset x="6" y="0"/>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.ARROWS)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestArrowVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindBreadButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindArrowButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="-10" y="-14"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.BREAD)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestBreadVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindFishButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindArrowButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="10" y="-14"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.FISH)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestFishVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindCheeseButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindBreadButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.CHEESE)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestCheeseVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindFruitButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindFishButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.FRUITS)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestFruitVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindMushroomButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindCheeseButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.MUSHROOMS)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestMushroomVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowFindMeatButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindFruitButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetText(BeastAndBow.L.MEAT)
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.FindNearestMeatVendor()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+
+            <!-- Options page container (Trainer, Pets, Stable) -->
+            <Frame name="BeastAndBowOptionsContainer" hidden="true">
+                <Size x="220" y="150"/> <!-- Adjusted height -->
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="BeastAndBowFrameCount" relativePoint="BOTTOM">
+                        <Offset x="0" y="-10"/>
+                    </Anchor>
+                </Anchors>
+                <Frames>
+                    <Button name="BeastAndBowBestariumButton" inherits="UIPanelButtonTemplate">
+                        <Size x="140" y="24"/>
+                        <Anchors>
+                            <Anchor point="TOP">
+                                <Offset x="0" y="0"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.BESTIARY) </OnLoad>
+                            <OnClick> if BeastAndBow and BeastAndBow.TogglePets then BeastAndBow.TogglePets(true) else ShowUIPanel(BestiaryMainFrame) end </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowTrainerButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowBestariumButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="-10" y="-14"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.TRAINER) </OnLoad>
+                            <OnClick> BeastAndBow.OpenTrainerOptions() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowPetTrainerButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowBestariumButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="10" y="-14"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.PET_TRAINER) </OnLoad>
+                            <OnClick> BeastAndBow.OpenPetTrainerOptions() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowStableMasterButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowTrainerButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.STABLE_MASTER) </OnLoad>
+                            <OnClick> BeastAndBow.FindNearestStableMaster() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowStableButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowPetTrainerButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.STABLE) </OnLoad>
+                            <OnClick> BeastAndBow.OpenStableOptions() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowInstinctButton" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="BeastAndBowStableMasterButton" relativePoint="BOTTOMLEFT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.INSTINCT) </OnLoad>
+                            <OnClick> BeastAndBow.OpenHunterSettings() </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="BeastAndBowPlaceholder2Button" inherits="UIPanelButtonTemplate">
+                        <Size x="78" y="22"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="BeastAndBowStableButton" relativePoint="BOTTOMRIGHT">
+                                <Offset x="0" y="-10"/>
+                            </Anchor>
+                        </Anchors>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad> self:SetText(BeastAndBow.L.MACROS) </OnLoad>
+                            <OnClick> if BeastAndBow and BeastAndBow.OpenMacros then BeastAndBow.OpenMacros() elseif BeastAndBowMacrosFrame then if BeastAndBowMacrosFrame:IsShown() then HideUIPanel(BeastAndBowMacrosFrame) else ShowUIPanel(BeastAndBowMacrosFrame) end else print("Beast &amp; Bow: Makrofenster nicht verfuegbar.") end </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Frame>
+
+            <!-- Collapse toggle: when collapsed the buttons container hides and only this arrow + icon are visible -->
+            <!-- Footer container to keep collapse arrow positioning independent of height changes -->
+            <Frame name="BeastAndBowFooterContainer">
+                <Size x="180" y="38"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM">
+                        <Offset x="0" y="10"/>
+                    </Anchor>
+                </Anchors>
+                <Frames>
+                    <Button name="BeastAndBowCollapseButton" enableMouse="true">
+                        <Size x="32" y="32"/>
+                        <Anchors>
+                            <Anchor point="CENTER"/>
+                        </Anchors>
+                        <HitRectInsets left="0" right="0" top="0" bottom="0"/>
+                        <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_up"/>
+                        <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_up"/>
+                        <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_up" alphaMode="ADD"/>
+                        <Scripts>
+                            <OnLoad>
+                                if BeastAndBowFrame then
+                                    self:SetFrameLevel(BeastAndBowFrame:GetFrameLevel() + 5)
+                                    self:SetFrameStrata("HIGH")
+                                end
+                            </OnLoad>
+                            <OnClick>
+                                BeastAndBow.ToggleCollapse()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Frame name="BeastAndBowAmmoMenuContainer">
+                        <Size x="24" y="56"/>
+                        <Anchors>
+                            <!-- Anchoring done dynamically in Lua based on collapse state -->
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad> self:SetFrameStrata("HIGH") </OnLoad>
+                        </Scripts>
+                        <Frames>
+                            <Button name="BeastAndBowAmmoMenuOpenButton" enableMouse="true">
+                                <Size x="24" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOP"/>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_up"/>
+                                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_up"/>
+                                <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+                                <Scripts>
+                                    <OnClick> BeastAndBow.OpenAmmoSelector(self) </OnClick>
+                                    <OnEnter>
+                                        if GameTooltip then
+                                            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                                            GameTooltip:SetText(BeastAndBow.L.QUICK_CHANGE_AMMO)
+                                            GameTooltip:Show()
+                                        end
+                                    </OnEnter>
+                                    <OnLeave>
+                                        if GameTooltip then GameTooltip:Hide() end
+                                    </OnLeave>
+                                </Scripts>
+                            </Button>
+                            <Button name="BeastAndBowAmmoMenuCloseButton" enableMouse="true">
+                                <Size x="24" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOP" relativeTo="BeastAndBowAmmoMenuOpenButton" relativePoint="BOTTOM" y="-6"/>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_down"/>
+                                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_down"/>
+                                <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+                                <Scripts>
+                                    <OnClick> BeastAndBow.CloseAmmoSelector() </OnClick>
+                                    <OnEnter>
+                                        if GameTooltip then
+                                            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                                            GameTooltip:SetText("Close ammo picker")
+                                            GameTooltip:Show()
+                                        end
+                                    </OnEnter>
+                                    <OnLeave>
+                                        if GameTooltip then GameTooltip:Hide() end
+                                    </OnLeave>
+                                </Scripts>
+                            </Button>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Frame>
+
+            <!-- Right-edge next-page toggle -->
+            <Button name="BeastAndBowNextPageButton" parent="BeastAndBowFrame" enableMouse="true">
+                <Size x="24" y="40"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativeTo="BeastAndBowFrame" relativePoint="RIGHT">
+                        <Offset x="-2" y="0"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_right"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_right"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick> BeastAndBow.TogglePage() </OnClick>
+                    <OnEnter>
+                        if GameTooltip then GameTooltip:SetOwner(self, "ANCHOR_LEFT"); GameTooltip:SetText("Options"); GameTooltip:Show() end
+                    </OnEnter>
+                    <OnLeave>
+                        if GameTooltip then GameTooltip:Hide() end
+                    </OnLeave>
+                </Scripts>
+            </Button>
+
+            <!-- Left-edge prev-page toggle (shown on second page) -->
+            <Button name="BeastAndBowPrevPageButton" parent="BeastAndBowFrame" enableMouse="true" hidden="true">
+                <Size x="24" y="40"/>
+                <Anchors>
+                    <!-- Anchor to left edge slightly below center for desired spot -->
+                    <Anchor point="LEFT" relativeTo="BeastAndBowFrame" relativePoint="LEFT">
                         <Offset x="0" y="-12"/>
                     </Anchor>
                 </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_left"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_left"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
                 <Scripts>
+                    <OnClick> BeastAndBow.TogglePage() </OnClick>
                     <OnLoad>
-                        self:SetText(BeastAndBow.L.ARROWS)
+                        if BeastAndBowFrame then
+                            self:SetFrameLevel(BeastAndBowFrame:GetFrameLevel() + 5)
+                            self:SetFrameStrata("HIGH")
+                        end
                     </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestArrowVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindBreadButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindArrowButton" relativePoint="BOTTOMLEFT">
-                        <Offset x="4" y="-8"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.BREAD)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestBreadVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindFishButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindArrowButton" relativePoint="BOTTOMRIGHT">
-                        <Offset x="-4" y="-8"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.FISH)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestFishVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindCheeseButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindBreadButton" relativePoint="BOTTOMLEFT">
-                        <Offset x="0" y="-4"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.CHEESE)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestCheeseVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindFruitButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindFishButton" relativePoint="BOTTOMRIGHT">
-                        <Offset x="0" y="-4"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.FRUITS)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestFruitVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindMushroomButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="BeastAndBowFindCheeseButton" relativePoint="BOTTOMLEFT">
-                        <Offset x="0" y="-4"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.MUSHROOMS)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestMushroomVendor()
-                    </OnClick>
-                </Scripts>
-            </Button>
-            <Button name="BeastAndBowFindMeatButton" inherits="UIPanelButtonTemplate">
-                <Size x="68" y="22"/>
-                <Anchors>
-                    <Anchor point="TOPRIGHT" relativeTo="BeastAndBowFindFruitButton" relativePoint="BOTTOMRIGHT">
-                        <Offset x="0" y="-4"/>
-                    </Anchor>
-                </Anchors>
-                <Scripts>
-                    <OnLoad>
-                        self:SetText(BeastAndBow.L.MEAT)
-                    </OnLoad>
-                    <OnClick>
-                        BeastAndBow.FindNearestMeatVendor()
-                    </OnClick>
+                    <OnEnter>
+                        if GameTooltip then GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText("Back"); GameTooltip:Show() end
+                    </OnEnter>
+                    <OnLeave>
+                        if GameTooltip then GameTooltip:Hide() end
+                    </OnLeave>
                 </Scripts>
             </Button>
         </Frames>
         <Scripts>
             <OnLoad>
-                self.TitleText:Hide()
                 BeastAndBow_OnLoad(self)
                 self:RegisterForDrag("LeftButton")
             </OnLoad>
@@ -166,26 +501,44 @@
     </Frame>
 
     <!-- Bug Report Frame -->
-    <Frame name="BeastAndBowReportFrame" inherits="BasicFrameTemplate" hidden="true" toplevel="true">
+    <Frame name="BeastAndBowReportFrame" inherits="BackdropTemplate" hidden="true" toplevel="true">
         <Size x="400" y="300"/>
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
         <Layers>
+            <Layer level="BACKGROUND">
+                <Texture file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+            </Layer>
             <Layer level="ARTWORK">
+                <FontString name="BeastAndBowReportFrameTitle" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-10"/>
+                    </Anchors>
+                </FontString>
                 <FontString name="BeastAndBowReportFrameInfoText" inherits="GameFontNormalSmall" text="Please describe the issue or your feedback below. Include as much detail as possible.">
                     <Anchors>
                         <Anchor point="TOPLEFT">
-                            <Offset x="20" y="-30"/>
+                            <Offset x="20" y="-40"/>
                         </Anchor>
                         <Anchor point="TOPRIGHT">
-                            <Offset x="-20" y="-30"/>
+                            <Offset x="-20" y="-40"/>
                         </Anchor>
                     </Anchors>
                 </FontString>
             </Layer>
         </Layers>
         <Frames>
+            <Button name="BeastAndBowReportFrameCloseButton" inherits="UIPanelButtonTemplate">
+                <Size x="20" y="20"/>
+                <Anchors><Anchor point="TOPRIGHT" x="-4" y="-4"/></Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick> HideUIPanel(self:GetParent()) </OnClick>
+                </Scripts>
+            </Button>
             <ScrollFrame name="BeastAndBowReportScrollFrame" inherits="UIPanelScrollFrameTemplate">
                 <Size x="360" y="180"/>
                 <Anchors>
@@ -193,6 +546,11 @@
                         <Offset x="0" y="-10"/>
                     </Anchor>
                 </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end
+                    </OnLoad>
+                </Scripts>
                 <ScrollChild>
                     <EditBox name="BeastAndBowReportFrameEditBox" multiLine="true" letters="1000" autoFocus="false">
                         <Size x="360" y="180"/>
@@ -212,6 +570,9 @@
                         <Offset x="20" y="20"/>
                     </Anchor>
                 </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
                 <Scripts>
                     <OnClick>
                         BeastAndBow.GenerateReport()
@@ -225,6 +586,9 @@
                         <Offset x="-20" y="20"/>
                     </Anchor>
                 </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
                 <Scripts>
                     <OnClick>
                         HideUIPanel(BeastAndBowReportFrame)
@@ -234,7 +598,7 @@
         </Frames>
         <Scripts>
             <OnLoad>
-                BeastAndBowReportFrame.TitleText:SetText(BeastAndBow.L.REPORT_FRAME_TITLE)
+                BeastAndBowReportFrameTitle:SetText(BeastAndBow.L.REPORT_FRAME_TITLE)
                 BeastAndBowReportFrameInfoText:SetText(BeastAndBow.L.REPORT_FRAME_INFO)
                 BeastAndBowReportGenerateButton:SetText(BeastAndBow.L.GENERATE_REPORT_BUTTON)
                 BeastAndBowReportCloseButton:SetText(BeastAndBow.L.CLOSE_BUTTON)
@@ -243,26 +607,44 @@
     </Frame>
 
     <!-- Copy Report Frame -->
-    <Frame name="BeastAndBowCopyFrame" inherits="BasicFrameTemplate" hidden="true" toplevel="true">
+    <Frame name="BeastAndBowCopyFrame" inherits="BackdropTemplate" hidden="true" toplevel="true">
         <Size x="500" y="400"/>
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
         <Layers>
+            <Layer level="BACKGROUND">
+                <Texture file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+            </Layer>
             <Layer level="ARTWORK">
+                <FontString name="BeastAndBowCopyFrameTitle" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-10"/>
+                    </Anchors>
+                </FontString>
                 <FontString name="BeastAndBowCopyFrameInfoText" inherits="GameFontNormalSmall" text="Press Ctrl+C to copy the text below and paste it on the CurseForge page.">
                     <Anchors>
                         <Anchor point="TOPLEFT">
-                            <Offset x="20" y="-30"/>
+                            <Offset x="20" y="-40"/>
                         </Anchor>
                         <Anchor point="TOPRIGHT">
-                            <Offset x="-20" y="-30"/>
+                            <Offset x="-20" y="-40"/>
                         </Anchor>
                     </Anchors>
                 </FontString>
             </Layer>
         </Layers>
         <Frames>
+            <Button name="BeastAndBowCopyFrameCloseButton" inherits="UIPanelButtonTemplate">
+                <Size x="20" y="20"/>
+                <Anchors><Anchor point="TOPRIGHT" x="-4" y="-4"/></Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnClick> HideUIPanel(self:GetParent()) </OnClick>
+                </Scripts>
+            </Button>
             <EditBox name="BeastAndBowCopyURL" inherits="InputBoxTemplate" autoFocus="false">
                 <Size x="460" y="20"/>
                 <Anchors>
@@ -288,6 +670,11 @@
                         <Offset x="0" y="-8"/>
                     </Anchor>
                 </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end
+                    </OnLoad>
+                </Scripts>
                 <ScrollChild>
                     <EditBox name="BeastAndBowCopyEditBox" multiLine="true" autoFocus="false">
                         <Size x="460" y="280"/>
@@ -311,6 +698,9 @@
                         <Offset x="0" y="20"/>
                     </Anchor>
                 </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
                 <Scripts>
                     <OnClick>
                         HideUIPanel(BeastAndBowCopyFrame)
@@ -320,11 +710,16 @@
         </Frames>
         <Scripts>
             <OnLoad>
-                BeastAndBowCopyFrame.TitleText:SetText(BeastAndBow.L.COPY_FRAME_TITLE)
+                BeastAndBowCopyFrameTitle:SetText(BeastAndBow.L.COPY_FRAME_TITLE)
                 BeastAndBowCopyFrameInfoText:SetText(BeastAndBow.L.COPY_FRAME_INFO)
                 BeastAndBowCopyCloseButton:SetText(BeastAndBow.L.CLOSE_BUTTON)
-                BeastAndBowCopyURL:SetText(BeastAndBow_Settings.curseforgeURL or BeastAndBow.L.CURSE_FORGE_URL_PLACEHOLDER)
+                BeastAndBowCopyURL:SetText((BeastAndBow_Settings and BeastAndBow_Settings.curseforgeURL) or BeastAndBow.L.CURSE_FORGE_URL_PLACEHOLDER)
             </OnLoad>
         </Scripts>
     </Frame>
+
+    <!-- Stable Memory moved to Stable_Master.xml -->
+
+    <!-- Pets Encyclopedia moved to Bestarium.xml -->
+
 </Ui>

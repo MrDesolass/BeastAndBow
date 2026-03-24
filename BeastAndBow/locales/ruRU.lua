@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["ruRU"] = {
+    -- Предупреждения
+    LOW_AMMO_WARNING = "Внимание, мало боеприпасов!",
+    NO_AMMO_WARNING = "Внимание, у вас нет боеприпасов!",
     -- Общие
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "Альянс",
@@ -34,12 +37,12 @@ BeastAndBow_locales["ruRU"] = {
     VENDOR_MAP_ID = "    mapID продавца: %d",
     VENDOR_NOT_ACCESSIBLE = "    Продавец %s недоступен для фракции %s",
     UNKNOWN_ZONE = "Неизвестная зона",
-    WAYPOINT_CREATED = "Точка пути для %s в %s создана.",
+    WAYPOINT_CREATED = "Точка маршрута для %s в зоне %s создана.",
     TOMTOM_NOT_FOUND = "TomTom не найден. Команда waypoint: /way ",
     NO_VENDOR_FOUND = "Продавец %s не найден.",
     DEBUG_MODE_ENABLED = "Режим отладки включён",
     DEBUG_MODE_DISABLED = "Режим отладки выключен",
-    AVAILABLE_COMMANDS = "Доступные команды: /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "Доступные команды: /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad запущен.",
     COMBAT_LOG_INFO = "Журнал боя: %s, %s, %s, %s",
 
@@ -81,6 +84,63 @@ BeastAndBow_locales["ruRU"] = {
     MUSHROOM_BUTTON_CLICKED = "Beast & Bow: нажата кнопка Грибы",
     MEAT_BUTTON_CLICKED = "Beast & Bow: нажата кнопка Мясо",
 
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "Учитель",
+    STABLE_MASTER = "Смотритель стойл",
+    PETS = "Питомцы",
+    STABLE = "Стойло",
+    INSTINCT = "Инстинкт",
+    INSTICT = "Инстинкт",
+    MACROS = "Макросы",
+
     -- BeastAndBow.toc
     NOTES = "Отслеживает ваши боеприпасы и находит ближайших продавцов стрел и еды для питомцев.",
+    -- Options (placeholders)
+    -- Меню параметров
+    OPTIONS_ENABLE_WARNINGS = "Включить систему предупреждений",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "Включает звуки, эффекты мигания и сообщения при низком количестве боеприпасов.",
+    OPTIONS_SHOW_FRAME = "Показать/Скрыть дополнение",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "Показывает или скрывает интерфейс дополнения Beast & Bow на экране.",
+    OPTIONS_ENABLE_LOGGING = "Включить логирование отладки",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "Включает подробное логирование в окне чата в целях отладки.",
+    OPTIONS_COLLAPSE_BUTTONS = "Свернуть кнопки",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "Скрывает развернутые кнопки поставщика и показывает только компактную стрелку/значок.",
+    OPTIONS_DEBUG_SECTION = "Отладка",
+    OPTIONS_DEBUG_MODE = "Режим отладки",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "Включите режим отладки для отображения подробной информации диагностики. Это включает подробный вывод от всех систем дополнения.",
+    OPTIONS_DEBUG_LOG_LEVEL = "Уровень журнала отладки",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "Установите минимальный уровень журнала для отображения. INFO=все сообщения, WARN=предупреждения+ошибки, DEBUG=только подробное, ERROR=только ошибки.",
+
+    -- Сообщения обратной связи по настройкам
+    WARNING_SYSTEM_ENABLED = "Система предупреждений включена.",
+    WARNING_SYSTEM_DISABLED = "Система предупреждений отключена.",
+    FRAME_SHOWN = "Счетчик боеприпасов теперь отображается.",
+    FRAME_HIDDEN = "Счетчик боеприпасов теперь скрыт.",
+    LOGGING_ENABLED = "Журналирование отладки включено.",
+    LOGGING_DISABLED = "Журналирование отладки отключено.",
+
+    -- Новые ключи
+    PET_TRAINER = "Учитель питомцев",
+    BESTIARY = "Бестиарий",
+    COMING_SOON = "Бестиарий",
+    MENU_PETS = "Питомцы",
+    MENU_ABILITIES = "Способности",
+    BACK = "Назад",
+    SKILL_TRAINER_INFO = "Этой способности обучает Учитель питомцев. Используйте кнопку 'Учитель питомцев', чтобы найти ближайшего.",
+    SKILL_NO_PETS_FOUND = "Не найдено питомцев, обучающих этой способности.",
+    DEBUG_LEVEL_INFO = "INFO - Все сообщения",
+    DEBUG_LEVEL_WARN = "WARN - Предупреждения и ошибки",
+    DEBUG_LEVEL_DEBUG = "DEBUG - Только подробный вывод",
+    DEBUG_LEVEL_ERROR = "ERROR - Только ошибки",
+    COPY_FRAME_INFO = "Нажмите Ctrl+C, чтобы скопировать текст ниже и вставить его на страницу комментариев CurseForge.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - Отчет об ошибке / Отзыв",
+    REPORT_FRAME_INFO = "Пожалуйста, опишите проблему или ваш отзыв ниже. Включите как можно больше деталей.",
+    GENERATE_REPORT_BUTTON = "Создать отчет",
+    CLOSE_BUTTON = "Закрыть",
+    COPY_FRAME_TITLE = "Отчет готов к копированию",
+    NO_STABLE_MASTER_FOUND = "Смотритель стойл не найден.",
+    NO_TRAINER_FOUND = "Учитель охотников не найден.",
+    NO_PET_TRAINER_FOUND = "Учитель питомцев не найден.",
+    MEDIUM_AMMO_WARNING = "У вас может закончиться боезапас в долгом путешествии! Ваш запас на среднем уровне.",
 }

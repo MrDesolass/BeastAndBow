@@ -1,14 +1,19 @@
 ## Interface: 11508
 ## Title: |cff9482c9Beast & Bow|r
 ## Title-deDE: |cff9482c9Beast & Bow|r
-## Version: 1.0.1
+## Version: 5.0.0-Classic
 ## Author: MrDesolas
 ## Notes: Tracks your ammo and finds the nearest arrow and pet food vendors.
 ## Notes-deDE: Verfolgt deine Munition und findet die nächsten Pfeil- und Tierfutterhändler.
-## OptionalDeps: TomTom
 ## SavedVariables: BeastAndBow_Settings
 
-init.lua
+Loadings\BeastAndBow_Version.lua
+
+Libs\HereBeDragons\LibStub\LibStub.lua
+Libs\HereBeDragons\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\HereBeDragons\HereBeDragons-2.0.lua
+Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+
 locales\enUS.lua
 locales\deDE.lua
 locales\esES.lua
@@ -20,9 +25,30 @@ locales\ptBR.lua
 locales\ruRU.lua
 locales\zhCN.lua
 locales\zhTW.lua
+locales\localization.lua
 
-localization.lua
-Data.lua
-BeastAndBow_Bindings.lua
+NPC_Data\Data.lua
+NPC_Data\Stable_Master.lua
+NPC_Data\Hunter_Trainer.lua
+NPC_Data\Pet_Trainer.lua
+locales\Pet_Name_Locale.lua
+Bestiary\Bestarium.lua
+
+Loadings\init.lua
+Green_Arrow.lua
+Search.lua
 BeastAndBow.lua
+Loadings\BeastAndBow_Utils.lua
+Macros\Macros.lua
+Loadings\DebugUtils.lua
+Bestiary\Bestarium.xml
+Stable.xml
+Macros\Macros.xml
+Loadings\BeastAndBow_Bindings.lua
+Loadings\Bindings.lua
+Settings\Options.lua
+Settings\HunterSettings.lua
+Settings\HunterSettings.xml
 BeastAndBow.xml
+
+

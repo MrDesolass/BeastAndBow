@@ -2,6 +2,9 @@
 
 BeastAndBow_locales = BeastAndBow_locales or {}
 BeastAndBow_locales["esES"] = {
+    -- Alertas
+    LOW_AMMO_WARNING = "¡Atención, munición baja!",
+    NO_AMMO_WARNING = "¡Atención, no tienes munición!",
     -- General
     ADDON_NAME = "|cff9482c9Beast & Bow|r",
     ALLIANCE = "Alianza",
@@ -10,7 +13,7 @@ BeastAndBow_locales["esES"] = {
 
     -- BeastAndBow.lua
     GET_MAX_AMMO_CAPACITY_NOT_AVAILABLE = "GetMaxAmmoCapacity: GetContainerItemLink no disponible.",
-    STARTING_QUIVER_SEARCH = "Iniciando búsqueda de carcaj para depuración...",
+    STARTING_QUIVER_SEARCH = "Iniciando búsqueda de aljaba para depuración...",
     BAG_INFO = "Bolsa %d: '%s', ClassID: '%s', SubClassID: '%s', ItemID: '%s'",
     KNOWN_QUIVER_CAPACITY = "  -> ¡Carcaj conocido! Capacidad: %s",
     UNKNOWN_QUIVER = "  -> Carcaj / bolsa de munición desconocido.",
@@ -39,7 +42,7 @@ BeastAndBow_locales["esES"] = {
     NO_VENDOR_FOUND = "No se encontró vendedor %s.",
     DEBUG_MODE_ENABLED = "Modo depuración activado",
     DEBUG_MODE_DISABLED = "Modo depuración desactivado",
-    AVAILABLE_COMMANDS = "Comandos disponibles: /bab [show|hide|debug]",
+    AVAILABLE_COMMANDS = "Comandos disponibles: /bab [show|hide|debug|report]",
     BEASTANDBOW_ONLOAD_STARTED = "BeastAndBow.OnLoad iniciado.",
     COMBAT_LOG_INFO = "Registro de combate: %s, %s, %s, %s",
 
@@ -62,24 +65,82 @@ BeastAndBow_locales["esES"] = {
     DEBUG_UPDATE_RECEIVED = "Update() recibió totalAmmo: %d",
     DEBUG_RANGED_WEAPON_LINK = "Enlace de arma a distancia: %s",
     DEBUG_WEAPON_CLASS = "Clase de arma: %s, SubClase: %s",
-    DEBUG_EXPECTED_AMMO_SET = "Munición esperada establecida a ClassID: %s, SubClassID: %s",
-    -- BeastAndBow.xml
+    DEBUG_EXPECTED_AMMO_SET = "Munción esperada establecida en ClassID: %s, SubClassID: %s",
+
+    -- BeastAndBow.xml - Botones
     ARROWS = "Flechas",
-    BULLETS = "Balas",
+    BULLETS = "Proyectiles",
     BREAD = "Pan",
     FISH = "Pescado",
     CHEESE = "Queso",
     FRUITS = "Frutas",
     MUSHROOMS = "Hongos",
     MEAT = "Carne",
-    ARROW_BUTTON_CLICKED = "Beast & Bow: botón Flechas pulsado",
-    BREAD_BUTTON_CLICKED = "Beast & Bow: botón Pan pulsado",
-    FISH_BUTTON_CLICKED = "Beast & Bow: botón Pescado pulsado",
-    CHEESE_BUTTON_CLICKED = "Beast & Bow: botón Queso pulsado",
-    FRUIT_BUTTON_CLICKED = "Beast & Bow: botón Frutas pulsado",
-    MUSHROOM_BUTTON_CLICKED = "Beast & Bow: botón Hongos pulsado",
-    MEAT_BUTTON_CLICKED = "Beast & Bow: botón Carne pulsado",
+    ARROW_BUTTON_CLICKED = "Beast & Bow: Botón de flechas hecho clic",
+    BREAD_BUTTON_CLICKED = "Beast & Bow: Botón de pan hecho clic",
+    FISH_BUTTON_CLICKED = "Beast & Bow: Botón de pescado hecho clic",
+    CHEESE_BUTTON_CLICKED = "Beast & Bow: Botón de queso hecho clic",
+    FRUIT_BUTTON_CLICKED = "Beast & Bow: Botón de frutas hecho clic",
+    MUSHROOM_BUTTON_CLICKED = "Beast & Bow: Botón de hongo hecho clic",
+    MEAT_BUTTON_CLICKED = "Beast & Bow: Botón de carne hecho clic",
+
+    -- BeastAndBow.xml -> Buttons
+    TRAINER = "Instructor",
+    STABLE_MASTER = "Maestro de establos",
+    PETS = "Mascotas",
+    STABLE = "Establo",
+    INSTINCT = "Instinto",
+    INSTICT = "Instinto",
+    MACROS = "Macros",
 
     -- BeastAndBow.toc
     NOTES = "Realiza un seguimiento de tu munición y encuentra los vendedores de flechas y comida para mascotas más cercanos.",
+    -- Options (placeholders)
+    -- Opciones de menú
+    OPTIONS_ENABLE_WARNINGS = "Habilitar sistema de advertencia",
+    OPTIONS_ENABLE_WARNINGS_TOOLTIP = "Habilita sonidos, efectos de parpadeo y mensajes de munición baja.",
+    OPTIONS_SHOW_FRAME = "Mostrar/Ocultar complemento",
+    OPTIONS_SHOW_FRAME_TOOLTIP = "Muestra u oculta la interfaz del complemento Beast & Bow en tu pantalla.",
+    OPTIONS_ENABLE_LOGGING = "Habilitar registro de depuración",
+    OPTIONS_ENABLE_LOGGING_TOOLTIP = "Habilita el registro detallado en la ventana de chat para fines de depuración.",
+    OPTIONS_COLLAPSE_BUTTONS = "Contraer botones",
+    OPTIONS_COLLAPSE_BUTTONS_TOOLTIP = "Oculta los botones de proveedor expandidos y muestra solo la flecha/icono compacto.",
+    OPTIONS_DEBUG_SECTION = "Depuración",
+    OPTIONS_DEBUG_MODE = "Modo de depuración",
+    OPTIONS_DEBUG_MODE_TOOLTIP = "Habilite el modo de depuración para mostrar información de diagnóstico detallada. Esto incluye resultados detallados de todos los sistemas de complementos.",
+    OPTIONS_DEBUG_LOG_LEVEL = "Nivel de registro de depuración",
+    OPTIONS_DEBUG_LOG_LEVEL_TOOLTIP = "Establezca el nivel de registro mínimo a mostrar. INFO=todos los mensajes, WARN=advertencias+errores, DEBUG=solo detallado, ERROR=solo errores.",
+
+    -- Mensajes de retroalimentación de opciones
+    WARNING_SYSTEM_ENABLED = "Sistema de advertencia habilitado.",
+    WARNING_SYSTEM_DISABLED = "Sistema de advertencia deshabilitado.",
+    FRAME_SHOWN = "El contador de munición ahora se muestra.",
+    FRAME_HIDDEN = "El contador de munición ahora está oculto.",
+    LOGGING_ENABLED = "Registro de depuración habilitado.",
+    LOGGING_DISABLED = "Registro de depuración deshabilitado.",
+
+    -- Nuevas claves
+    PET_TRAINER = "Instructor de mascotas",
+    BESTIARY = "Bestiario",
+    COMING_SOON = "Bestiario",
+    MENU_PETS = "Mascotas",
+    MENU_ABILITIES = "Habilidades",
+    BACK = "Volver",
+    SKILL_TRAINER_INFO = "Esta habilidad la enseña un instructor de mascotas. Usa el botón 'Instructor de mascotas' para encontrar el más cercano.",
+    SKILL_NO_PETS_FOUND = "No se han encontrado mascotas domables que enseñen esta habilidad.",
+    DEBUG_LEVEL_INFO = "INFO - Todos los mensajes",
+    DEBUG_LEVEL_WARN = "WARN - Advertencias y errores",
+    DEBUG_LEVEL_DEBUG = "DEBUG - Solo salida detallada",
+    DEBUG_LEVEL_ERROR = "ERROR - Solo errores",
+    COPY_FRAME_INFO = "Pulsa Ctrl+C para copiar el texto y pegarlo en la página de comentarios de CurseForge.",
+    CURSE_FORGE_URL_PLACEHOLDER = "https://www.curseforge.com/wow/addons/beastandbow/comments",
+    REPORT_FRAME_TITLE = "Beast & Bow - Informe de error / Comentarios",
+    REPORT_FRAME_INFO = "Por favor, describe el problema o tus comentarios a continuación. Incluye tantos detalles como sea posible.",
+    GENERATE_REPORT_BUTTON = "Generar informe",
+    CLOSE_BUTTON = "Cerrar",
+    COPY_FRAME_TITLE = "Informe listo para copiar",
+    NO_STABLE_MASTER_FOUND = "No se encontró ningún Maestro de establos.",
+    NO_TRAINER_FOUND = "No se encontró ningún Instructor de cazadores.",
+    NO_PET_TRAINER_FOUND = "No se encontró ningún Instructor de mascotas.",
+    MEDIUM_AMMO_WARNING = "¡Podrías quedarte sin munición en un viaje largo! Tu suministro está a un nivel medio.",
 }

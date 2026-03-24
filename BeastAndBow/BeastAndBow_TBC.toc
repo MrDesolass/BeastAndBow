@@ -1,0 +1,59 @@
+## Interface: 20505
+## Title: |cff9482c9Beast & Bow|r
+## Title-deDE: |cff9482c9Beast & Bow|r
+## Version: 1.0.0-TBC
+## Author: MrDesolas
+## Notes: Tracks your ammo and finds the nearest arrow and pet food vendors.
+## Notes-deDE: Verfolgt deine Munition und findet die nächsten Pfeil- und Tierfutterhändler.
+## SavedVariables: BeastAndBow_Settings
+
+Loadings\BeastAndBow_Version.lua
+
+Libs\HereBeDragons\LibStub\LibStub.lua
+Libs\HereBeDragons\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\HereBeDragons\HereBeDragons-2.0.lua
+Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+
+locales\enUS.lua
+locales\deDE.lua
+locales\esES.lua
+locales\esMX.lua
+locales\frFR.lua
+locales\itIT.lua
+locales\koKR.lua
+locales\ptBR.lua
+locales\ruRU.lua
+locales\zhCN.lua
+locales\zhTW.lua
+locales\localization.lua
+
+NPC_Data\Data.lua
+NPC_Data\TBC_Data.lua
+NPC_Data\Stable_Master.lua
+NPC_Data\Stable_Master_TBC.lua
+NPC_Data\Hunter_Trainer.lua
+NPC_Data\Hunter_Trainer_TBC.lua
+NPC_Data\Pet_Trainer.lua
+NPC_Data\Pet_Trainer_TBC.lua
+locales\Pet_Name_Locale.lua
+Bestiary\Bestarium.lua
+Bestiary\Bestarium_TBC.lua
+
+Loadings\init.lua
+Green_Arrow.lua
+Search.lua
+BeastAndBow.lua
+Loadings\BeastAndBow_Utils.lua
+Macros\Macros.lua
+Macros\Macros_TBC.lua
+Loadings\DebugUtils.lua
+Bestiary\Bestarium.xml
+Bestiary\Bestiarium_TBC.xml
+Stable.xml
+Macros\Macros.xml
+Loadings\BeastAndBow_Bindings.lua
+Loadings\Bindings.lua
+Settings\Options.lua
+Settings\HunterSettings_TBC.lua
+Settings\HunterSettings_TBC.xml
+BeastAndBow.xml

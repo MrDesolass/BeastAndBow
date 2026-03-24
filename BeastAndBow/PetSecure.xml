@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <!-- Hidden secure button to issue /petattack when clicked via a binding -->
+    <Button name="BeastAndBowPetAttackButton" parent="UIParent" inherits="SecureActionButtonTemplate" hidden="true">
+        <Attributes>
+            <Attribute name="type" value="macro"/>
+            <Attribute name="macrotext" value="/petattack"/>
+        </Attributes>
+    </Button>
+</Ui>

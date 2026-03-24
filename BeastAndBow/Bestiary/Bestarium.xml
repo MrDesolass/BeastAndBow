@@ -1,0 +1,291 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="BestiaryMainFrame" inherits="BackdropTemplate" hidden="true" toplevel="true" enableMouse="true" movable="true">
+        <Size x="680" y="420"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+                <FontString name="BestiaryMainTitle" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset x="0" y="-10"/>
+                        </Anchor>
+                    </Anchors>
+                    <Scripts>
+                        <OnLoad> if BeastAndBow and BeastAndBow.L and BeastAndBow.L.BESTIARY then self:SetText(BeastAndBow.L.BESTIARY) else self:SetText("Pets Encyclopedia") end </OnLoad>
+                    </Scripts>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <!-- Global Search Box in Header -->
+            <EditBox name="BestiariumGlobalSearchBoxHeader" inherits="SearchBoxTemplate" letters="50" autoFocus="false" hidden="true">
+                <Size x="120" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-70" y="-10"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:SetScript("OnTextChanged", function(self)
+                            if BeastAndBow and BeastAndBow.OnGlobalSearchTextChanged then
+                                local ok, err = pcall(BeastAndBow.OnGlobalSearchTextChanged, self:GetText())
+                                if not ok then
+                                    if DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.AddMessage then
+                                        DEFAULT_CHAT_FRAME:AddMessage("|cffff0000BeastAndBow Search Error:|r " .. tostring(err))
+                                    end
+                                end
+                            end
+                        end)
+                    </OnLoad>
+                </Scripts>
+            </EditBox>
+        </Frames>
+        <Scripts>
+            <OnLoad><![CDATA[
+                if self.SetBackdrop then self:SetBackdrop(nil) end
+                self:RegisterForDrag("LeftButton")
+            ]]></OnLoad>
+            <OnDragStart><![CDATA[self:StartMoving()]]></OnDragStart>
+            <OnDragStop><![CDATA[self:StopMovingOrSizing()]]></OnDragStop>
+            <OnShow><![CDATA[
+                -- Ensure the menu is shown when the window opens
+                local petsFrame = _G["BeastAndBowPetsFrame"]
+                local skillsFrame = _G["BeastAndBowSkillsFrame"]
+                local petsMenu = _G["BeastAndBowPetsMenu"]
+                local modelContainer = _G["BeastAndBowPetsModelContainer"]
+                local infoPanel = _G["BeastAndBowPetsInfo"]
+                local scene = _G["BeastAndBowPetsModel"]
+                
+                if petsFrame then petsFrame:Hide() end
+                if skillsFrame then skillsFrame:Hide() end
+                if modelContainer then modelContainer:Hide() end
+                if infoPanel then infoPanel:Hide() end
+                if scene and scene.ClearModel then scene:ClearModel() end
+                if petsMenu then petsMenu:Show() end
+            ]]></OnShow>
+            <OnHide><![CDATA[
+                -- Clear search on hide to reset the view for next time
+                local searchBox = _G["BestiariumGlobalSearchBoxHeader"]
+                if searchBox then
+                    searchBox:SetText("")
+                end
+                
+                -- Reset the UI state so the menu appears when the window reopens
+                local petsFrame = _G["BeastAndBowPetsFrame"]
+                local skillsFrame = _G["BeastAndBowSkillsFrame"]
+                local petsMenu = _G["BeastAndBowPetsMenu"]
+                local modelContainer = _G["BeastAndBowPetsModelContainer"]
+                local infoPanel = _G["BeastAndBowPetsInfo"]
+                local scene = _G["BeastAndBowPetsModel"]
+                
+                if petsFrame then petsFrame:Hide() end
+                if skillsFrame then skillsFrame:Hide() end
+                if modelContainer then modelContainer:Hide() end
+                if infoPanel then infoPanel:Hide() end
+                if scene and scene.ClearModel then scene:ClearModel() end
+                if petsMenu then petsMenu:Show() end
+            ]]></OnHide>
+        </Scripts>
+        <Frames>
+            <!-- Custom close button -->
+            <Button name="BeastAndBowPetsClose" inherits="UIPanelButtonTemplate">
+                <Size x="20" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset x="-4" y="-4"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight" alphaMode="ADD"/>
+                <Scripts>
+                    <OnLoad>
+                        self:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+                        self:GetHighlightTexture():SetBlendMode("ADD")
+                    </OnLoad>
+                    <OnClick> HideUIPanel(BestiaryMainFrame) </OnClick>
+                    <OnEnter>
+                        if GameTooltip then
+                            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                            GameTooltip:SetText("Schließen")
+                            GameTooltip:Show()
+                        end
+                        self:SetHighlightTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+                        self:GetHighlightTexture():SetBlendMode("ADD")
+                        self:GetHighlightTexture():Show()
+                    </OnEnter>
+                    <OnLeave>
+                        if GameTooltip then GameTooltip:Hide() end
+                        local hl = self:GetHighlightTexture()
+                        if hl then hl:Hide() end
+                    </OnLeave>
+                </Scripts>
+            </Button>
+            
+            <!-- Main Content Area -->
+            <Frame name="BeastAndBowContentFrame">
+                 <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Frames>
+                    <!-- Central Menu -->
+                    <Frame name="BeastAndBowPetsMenu" inherits="BackdropTemplate">
+                        <Size x="360" y="220"/>
+                        <Anchors>
+                            <Anchor point="CENTER"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture file="Interface\\AddOns\\BeastAndBow\\Textures\\background" setAllPoints="true"/>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Button name="BeastAndBowMenuPetsButton" inherits="UIPanelButtonTemplate">
+                                <Size x="160" y="48"/>
+                                <Anchors>
+                                    <Anchor point="CENTER">
+                                        <Offset x="-100" y="0"/>
+                                    </Anchor>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                                <Scripts>
+                                    <OnLoad> if BeastAndBow and BeastAndBow.L and BeastAndBow.L.MENU_PETS then self:SetText(BeastAndBow.L.MENU_PETS) else self:SetText("Tiere") end </OnLoad>
+                                    <OnClick> BeastAndBow.OpenPetsView() </OnClick>
+                                </Scripts>
+                            </Button>
+                            <Button name="BeastAndBowMenuAbilitiesButton" inherits="UIPanelButtonTemplate">
+                                <Size x="160" y="48"/>
+                                <Anchors>
+                                    <Anchor point="CENTER">
+                                        <Offset x="100" y="0"/>
+                                    </Anchor>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <HighlightTexture file="Interface\AddOns\BeastAndBow\Textures\buttons" alphaMode="ADD"/>
+                                <Scripts>
+                                    <OnLoad> if BeastAndBow and BeastAndBow.L and BeastAndBow.L.MENU_ABILITIES then self:SetText(BeastAndBow.L.MENU_ABILITIES) else self:SetText("Fähigkeiten") end </OnLoad>
+                                    <OnClick> BeastAndBow.OpenSkillsView() </OnClick>
+                                </Scripts>
+                            </Button>
+                        </Frames>
+                    </Frame>
+
+
+
+                    <!-- ====== PETS VIEW ====== -->
+                    <Frame name="BeastAndBowPetsFrame" hidden="true">
+                        <Anchors><Anchor point="TOPLEFT"/><Anchor point="BOTTOMRIGHT"/></Anchors>
+                        <Frames>
+                            <Button name="BeastAndBowPetsToSkillsButton" inherits="UIPanelButtonTemplate">
+                                <Size x="80" y="24"/>
+                                <Anchors><Anchor point="TOPLEFT" x="8" y="-8"/></Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <Scripts>
+                                    <OnLoad> if BeastAndBow and BeastAndBow.L and BeastAndBow.L.MENU_ABILITIES then self:SetText(BeastAndBow.L.MENU_ABILITIES) else self:SetText("Abilities") end </OnLoad>
+                                    <OnClick> BeastAndBow.OpenSkillsView() </OnClick>
+                                </Scripts>
+                            </Button>
+                            <ScrollFrame name="BeastAndBowPetsCategoriesScroll" inherits="UIPanelScrollFrameTemplate">
+                                <Size x="160" y="300"/>
+                                <Anchors><Anchor point="TOPLEFT" x="20" y="-70"/></Anchors>
+                                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                                <ScrollChild><Frame name="BeastAndBowPetsCategories"><Size x="160" y="300"/></Frame></ScrollChild>
+                            </ScrollFrame>
+                            <ScrollFrame name="BeastAndBowPetsSpeciesScroll" inherits="UIPanelScrollFrameTemplate">
+                                <Size x="180" y="300"/>
+                                <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsCategoriesScroll" relativePoint="TOPRIGHT" x="20" y="0"/></Anchors>
+                                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                                <ScrollChild><Frame name="BeastAndBowPetsSpecies"><Size x="180" y="300"/></Frame></ScrollChild>
+                            </ScrollFrame>
+                        </Frames>
+                    </Frame>
+                    
+                    <!-- ====== ABILITIES VIEW ====== -->
+                    <Frame name="BeastAndBowSkillsFrame" hidden="true">
+                        <Anchors><Anchor point="TOPLEFT"/><Anchor point="BOTTOMRIGHT"/></Anchors>
+                        <Frames><Button name="BeastAndBowSkillsBackButton" inherits="UIPanelButtonTemplate">
+                                <Size x="80" y="24"/>
+                                <Anchors><Anchor point="TOPLEFT" x="8" y="-8"/></Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <Scripts>
+                                    <OnLoad> if BeastAndBow and BeastAndBow.L and BeastAndBow.L.MENU_PETS then self:SetText(BeastAndBow.L.MENU_PETS) else self:SetText("Tiere") end </OnLoad>
+                                    <OnClick> BeastAndBow.OpenPetsView() </OnClick>
+                                </Scripts>
+                            </Button>
+                            <ScrollFrame name="BeastAndBowSkills_AbilitiesScroll" inherits="UIPanelScrollFrameTemplate">
+                                <Size x="160" y="300"/>
+                                <Anchors><Anchor point="TOPLEFT" x="20" y="-70"/></Anchors>
+                                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                                <ScrollChild><Frame name="BeastAndBowSkills_Abilities"><Size x="160" y="300"/></Frame></ScrollChild>
+                            </ScrollFrame>
+                            <ScrollFrame name="BeastAndBowSkills_RanksScroll" inherits="UIPanelScrollFrameTemplate">
+                                <Size x="180" y="300"/>
+                                <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowSkills_AbilitiesScroll" relativePoint="TOPRIGHT" x="12" y="0"/></Anchors>
+                                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                               <ScrollChild><Frame name="BeastAndBowSkills_Ranks"><Size x="180" y="300"/></Frame></ScrollChild>
+                            </ScrollFrame>
+                            <ScrollFrame name="BeastAndBowSkills_PetsScroll" inherits="UIPanelScrollFrameTemplate">
+                                <Size x="180" y="300"/>
+                                <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowSkills_RanksScroll" relativePoint="TOPRIGHT" x="12" y="0"/></Anchors>
+                                <Scripts><OnLoad>if BeastAndBow and BeastAndBow.StyleScrollFrame then BeastAndBow.StyleScrollFrame(self) end</OnLoad></Scripts>
+                                <ScrollChild><Frame name="BeastAndBowSkills_Pets"><Size x="180" y="300"/></Frame></ScrollChild>
+                            </ScrollFrame>
+                        </Frames>
+                    </Frame>
+
+                    <!-- ====== SHARED DETAIL/MODEL VIEW ====== -->
+                    <Frame name="BeastAndBowPetsModelContainer" hidden="true">
+                        <Size x="220" y="300"/>
+                        <Anchors><Anchor point="TOPLEFT" x="200" y="-70"/></Anchors>
+                        <Frames>
+                            <PlayerModel name="BeastAndBowPetsModel"><Size x="220" y="220"/><Anchors><Anchor point="TOP" x="0" y="-30"/></Anchors></PlayerModel>
+                            <Button name="BeastAndBowPetsRotateLeft"><Size x="32" y="32"/><Anchors><Anchor point="BOTTOM" x="-20" y="8"/></Anchors><NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_left"/><Scripts><OnClick>BeastAndBow.RotatePetsModel(-0.2)</OnClick></Scripts></Button>
+                            <Button name="BeastAndBowPetsRotateRight"><Size x="32" y="32"/><Anchors><Anchor point="BOTTOM" x="20" y="8"/></Anchors><NormalTexture file="Interface\AddOns\BeastAndBow\Textures\arrow_right"/><Scripts><OnClick>BeastAndBow.RotatePetsModel(0.2)</OnClick></Scripts></Button>
+                        </Frames>
+                    </Frame>
+                    <Frame name="BeastAndBowPetsInfo" inherits="BackdropTemplate" hidden="true">
+                        <Size x="350" y="300"/>
+                        <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsModelContainer" relativePoint="TOPRIGHT" x="20" y="0"/></Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString name="BeastAndBowPetsDetailName" inherits="GameFontNormalLarge" text="—" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" x="8" y="-8"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailLevel" inherits="GameFontNormal" text="Level: -" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailName" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailSpeed" inherits="GameFontNormal" text="Attack Speed: -" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailLevel" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailDiet" inherits="GameFontNormal" text="Diet: -" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailSpeed" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailZone" inherits="GameFontNormal" text="Zone: -" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailDiet" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailAbilities" inherits="GameFontNormal" text="Learns: -" justifyH="LEFT" justifyV="TOP" wordwrap="true"><Size x="300"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailZone" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                                <FontString name="BeastAndBowPetsDetailNotes" inherits="GameFontNormal" text="Notes: -" justifyH="LEFT" justifyV="TOP" wordwrap="true"><Size x="320" y="100"/><Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailAbilities" relativePoint="BOTTOMLEFT" x="0" y="-6"/></Anchors></FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Button name="BeastAndBowPetsBackButton" inherits="UIPanelButtonTemplate">
+                                <Size x="110" y="24"/>
+                                <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailNotes" relativePoint="BOTTOMLEFT" x="0" y="-12"/></Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <Scripts>
+                                    <OnLoad> self:SetText(BeastAndBow and BeastAndBow.L and BeastAndBow.L.BACK or "Back") </OnLoad>
+                                    <OnClick> BeastAndBow.PetsBackToSpecies() </OnClick>
+                                </Scripts>
+                            </Button>
+                             <Button name="BeastAndBowSkills_DetailBackButton" inherits="UIPanelButtonTemplate" hidden="true">
+                                <Size x="110" y="24"/>
+                                <Anchors><Anchor point="TOPLEFT" relativeTo="BeastAndBowPetsDetailNotes" relativePoint="BOTTOMLEFT" x="0" y="-12"/></Anchors>
+                                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\buttons"/>
+                                <Scripts>
+                                    <OnLoad> self:SetText(BeastAndBow and BeastAndBow.L and BeastAndBow.L.BACK or "Back") </OnLoad>
+                                    <OnClick> BeastAndBow.SkillsBackToBrowser() </OnClick>
+                                </Scripts>
+                            </Button>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

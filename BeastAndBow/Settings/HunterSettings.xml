@@ -1,0 +1,129 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="BeastAndBowHunterSettingsFrame" inherits="BackdropTemplate" parent="UIParent" hidden="true" movable="true" enableMouse="true" toplevel="true">
+        <Size x="450" y="240"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentTitle" inherits="GameFontNormal" text="Einstellungen für dein Jäger-Erlebnis">
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parent" x="0" y="-20"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+                <PushedTexture file="Interface\AddOns\BeastAndBow\Textures\close_normal"/>
+            </Button>
+            
+            <!-- Auto-buy Arrows Checkbox -->
+            <CheckButton name="BeastAndBowAutoBuyArrowsCheckbox" inherits="UICheckButtonTemplate">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="20" y="-60"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        _G[self:GetName() .. 'Text']:SetText(BeastAndBow.L.OPTIONS_AUTOBUY_ARROWS);
+                    </OnLoad>
+                    <OnClick>
+                        BeastAndBow_Settings.autoBuyArrows = self:GetChecked();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
+            <!-- Arrow Selection Button -->
+            <Button name="BeastAndBowArrowSelectorButton" inherits="UIPanelButtonTemplate">
+                <Size x="150" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BeastAndBowAutoBuyArrowsCheckbox" relativePoint="RIGHT" x="220" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        BeastAndBow.ToggleArrowMenu(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Auto-buy Bullets Checkbox -->
+            <CheckButton name="BeastAndBowAutoBuyBulletsCheckbox" inherits="UICheckButtonTemplate">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="BeastAndBowAutoBuyArrowsCheckbox" x="0" y="-40"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        _G[self:GetName() .. 'Text']:SetText(BeastAndBow.L.OPTIONS_AUTOBUY_BULLETS);
+                    </OnLoad>
+                    <OnClick>
+                        BeastAndBow_Settings.autoBuyBullets = self:GetChecked();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
+            <!-- Bullet Selection Button -->
+            <Button name="BeastAndBowBulletSelectorButton" inherits="UIPanelButtonTemplate">
+                <Size x="150" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BeastAndBowAutoBuyBulletsCheckbox" relativePoint="RIGHT" x="220" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        BeastAndBow.ToggleBulletMenu(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            
+            <!-- Auto-buy Pet Food Checkbox -->
+            <CheckButton name="BeastAndBowAutoBuyPetFoodCheckbox" inherits="UICheckButtonTemplate">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="BeastAndBowAutoBuyBulletsCheckbox" x="0" y="-40"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        _G[self:GetName() .. 'Text']:SetText("Soon");
+                    </OnLoad>
+                    <OnClick>
+                        BeastAndBow_Settings.autoBuyPetFood = self:GetChecked();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            
+            <!-- Pet Food Selection Button -->
+            <Button name="BeastAndBowPetFoodSelectorButton" inherits="UIPanelButtonTemplate">
+                <Size x="150" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BeastAndBowAutoBuyPetFoodCheckbox" relativePoint="RIGHT" x="220" y="0"/>
+                </Anchors>
+                 <Scripts>
+                    <OnClick>
+                        BeastAndBow.TogglePetFoodMenu(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <Frame name="BeastAndBowSelectorContainer" hidden="true" frameStrata="HIGH" frameLevel="10">
+                <Size x="150" y="120"/>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture name="$parentBackground" file="Interface\AddOns\BeastAndBow\Textures\background" setAllPoints="true"/>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                BeastAndBow.HunterSettings_OnLoad(self);
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>
